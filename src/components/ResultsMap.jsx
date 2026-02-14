@@ -1,7 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import L from "leaflet";
+// leaflet.heat benötigt globales L
+if (typeof window !== "undefined") window.L = L;
+import "leaflet.heat";
 import { fetchResults } from "../lib/api";
 import LanguageSwitcher from "./LanguageSwitcher";
 import "leaflet/dist/leaflet.css";
@@ -14,6 +17,15 @@ L.Icon.Default.mergeOptions({
   shadowUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png",
 });
 
+function createColoredIcon(color) {
+  return L.divIcon({
+    className: "colored-pin",
+    html: `<div style="background-color:${color};width:16px;height:16px;border-radius:50%;border:2px solid white;box-shadow:0 1px 3px rgba(0,0,0,0.3)"></div>`,
+    iconSize: [16, 16],
+    iconAnchor: [8, 8],
+  });
+}
+
 function MapCenter({ center }) {
   const map = useMap();
   useEffect(() => {
@@ -22,10 +34,48 @@ function MapCenter({ center }) {
   return null;
 }
 
+function HeatmapLayers({ results, getTopParty }) {
+  const map = useMap();
+  const layersRef = useRef([]);
+
+  useEffect(() => {
+    if (!L.heatLayer) return;
+    const pointsByParty = {};
+    results.forEach((r) => {
+      if (!r.lat || !r.lng) return;
+      const top = getTopParty(r);
+      if (!top) return;
+      if (!pointsByParty[top.id]) pointsByParty[top.id] = { color: top.color, points: [] };
+      pointsByParty[top.id].points.push([r.lat, r.lng, 0.5]);
+    });
+
+    const layers = [];
+    Object.entries(pointsByParty).forEach(([partyId, { color, points }]) => {
+      const layer = L.heatLayer(points, {
+        radius: 25,
+        blur: 15,
+        maxZoom: 17,
+        gradient: { 0: "rgba(255,255,255,0)", 0.5: color + "80", 1: color },
+      });
+      map.addLayer(layer);
+      layers.push(layer);
+    });
+    layersRef.current = layers;
+
+    return () => {
+      layers.forEach((l) => map.removeLayer(l));
+      layersRef.current = [];
+    };
+  }, [map, results, getTopParty]);
+
+  return null;
+}
+
 export default function ResultsMap({ onBack }) {
   const { t } = useTranslation();
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [mapMode, setMapMode] = useState("pins"); // "pins" | "heatmap"
 
   const loadResults = async () => {
     setLoading(true);
@@ -45,29 +95,21 @@ export default function ResultsMap({ onBack }) {
   const getTopParty = (r) => {
     const matches = r.party_matches || [];
     if (!matches.length) return null;
-    // Immer numerisch nach höchster Übereinstimmung sortieren (match kann als String gespeichert sein)
     const sorted = [...matches].sort((a, b) => (Number(b.match) || 0) - (Number(a.match) || 0));
     return sorted[0];
   };
 
-  // Nach Standort gruppieren (API liefert created_at DESC = neueste zuerst)
-  const groupedByLocation = results.reduce((acc, r) => {
-    if (!r.lat || !r.lng) return acc;
+  const resultsWithLocation = results.filter((r) => r.lat && r.lng);
+  const displayResults = resultsWithLocation.reduce((acc, r) => {
     const key = `${r.lat.toFixed(5)}_${r.lng.toFixed(5)}`;
     if (!acc[key]) acc[key] = [];
     acc[key].push(r);
     return acc;
   }, {});
-  // Für Liste: pro Standort nur neuestes (für Übersicht)
-  const displayResults = Object.values(groupedByLocation).map((arr) => arr[0]);
-  // Für Karte: alle Gruppen mit allen Ergebnissen pro Marker
-  const mapMarkers = Object.entries(groupedByLocation).map(([key, arr]) => {
-    const [lat, lng] = key.split("_").map(Number);
-    return { lat, lng, results: arr };
-  });
+  const listItems = Object.values(displayResults).map((arr) => arr[0]);
 
-  const firstWithLocation = displayResults.find((r) => r.lat && r.lng);
-  const defaultCenter = [51.1657, 10.4515]; // Deutschland
+  const firstWithLocation = resultsWithLocation[0];
+  const defaultCenter = [51.1657, 10.4515];
 
   const formatLocation = (r) => {
     const parts = [r.city, r.region, r.country].filter(Boolean);
@@ -91,6 +133,22 @@ export default function ResultsMap({ onBack }) {
         <button className="btn-back" onClick={onBack}>{t("common.back")}</button>
         <h1>{t("map.title")}</h1>
         <p className="map-subtitle">{t("map.subtitle")}</p>
+        <div className="map-mode-tabs">
+          <button
+            type="button"
+            className={`map-mode-tab ${mapMode === "pins" ? "active" : ""}`}
+            onClick={() => setMapMode("pins")}
+          >
+            {t("map.modePins")}
+          </button>
+          <button
+            type="button"
+            className={`map-mode-tab ${mapMode === "heatmap" ? "active" : ""}`}
+            onClick={() => setMapMode("heatmap")}
+          >
+            {t("map.modeHeatmap")}
+          </button>
+        </div>
         <button
           type="button"
           className="btn-refresh"
@@ -108,11 +166,11 @@ export default function ResultsMap({ onBack }) {
         <div className="map-with-list">
           <aside className="map-results-list">
             <h3>{t("map.resultsList")}</h3>
-            {displayResults.length === 0 ? (
+            {listItems.length === 0 ? (
               <p className="map-list-empty">{t("map.noData")}</p>
             ) : (
               <ul>
-                {displayResults.map((r) => {
+                {listItems.map((r) => {
                   const top = getTopParty(r);
                   return (
                     <li key={r.id} className="map-list-item">
@@ -132,44 +190,54 @@ export default function ResultsMap({ onBack }) {
             )}
           </aside>
           <div className="map-container">
-          <MapContainer
-            center={defaultCenter}
-            zoom={5}
-            className="leaflet-map"
-            scrollWheelZoom={true}
-          >
-            <TileLayer
-              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            />
-            <MapCenter center={firstWithLocation ? [firstWithLocation.lat, firstWithLocation.lng] : null} />
-            {mapMarkers.map(({ lat, lng, results: groupResults }) => {
-              const first = groupResults[0];
-              return (
-                <Marker key={`${lat}_${lng}`} position={[lat, lng]}>
-                  <Popup>
-                    <div className="map-popup">
-                      {first.city && <strong>{first.city}</strong>}
-                      {first.region && <span>, {first.region}</span>}
-                      <div className="map-popup-results">
-                        {groupResults.map((r) => {
-                          const top = getTopParty(r);
-                          return top ? (
-                            <p key={r.id} className="map-popup-party">
-                              <span style={{ color: top.color }}>{top.name}</span> {top.match}%
-                              {r.created_at && (
-                                <span className="map-popup-date"> ({formatDate(r.created_at)})</span>
-                              )}
-                            </p>
-                          ) : null;
-                        })}
-                      </div>
-                    </div>
-                  </Popup>
-                </Marker>
-              );
-            })}
-          </MapContainer>
+            <MapContainer
+              center={defaultCenter}
+              zoom={5}
+              className="leaflet-map"
+              scrollWheelZoom={true}
+            >
+              <TileLayer
+                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              />
+              <MapCenter center={firstWithLocation ? [firstWithLocation.lat, firstWithLocation.lng] : null} />
+              {mapMode === "pins" &&
+                resultsWithLocation.map((r) => {
+                  const top = getTopParty(r);
+                  const color = top?.color || "#888";
+                  const groupResults = displayResults[`${r.lat.toFixed(5)}_${r.lng.toFixed(5)}`] || [r];
+                  return (
+                    <Marker
+                      key={r.id}
+                      position={[r.lat, r.lng]}
+                      icon={createColoredIcon(color)}
+                    >
+                      <Popup>
+                        <div className="map-popup">
+                          {r.city && <strong>{r.city}</strong>}
+                          {r.region && <span>, {r.region}</span>}
+                          <div className="map-popup-results">
+                            {groupResults.map((res) => {
+                              const topParty = getTopParty(res);
+                              return topParty ? (
+                                <p key={res.id} className="map-popup-party">
+                                  <span style={{ color: topParty.color }}>{topParty.name}</span> {topParty.match}%
+                                  {res.created_at && (
+                                    <span className="map-popup-date"> ({formatDate(res.created_at)})</span>
+                                  )}
+                                </p>
+                              ) : null;
+                            })}
+                          </div>
+                        </div>
+                      </Popup>
+                    </Marker>
+                  );
+                })}
+              {mapMode === "heatmap" && (
+                <HeatmapLayers results={resultsWithLocation} getTopParty={getTopParty} />
+              )}
+            </MapContainer>
           </div>
         </div>
       )}

@@ -50,6 +50,8 @@
     "noData": "Supabase not configured.",
     "topParty": "Top party",
     "refresh": "Refresh",
+    "modePins": "Pins",
+    "modeHeatmap": "Heatmap",
     "resultsList": "All results",
     "resultsTotal": "{{count}} saved results",
     "unknownLocation": "Unknown location"

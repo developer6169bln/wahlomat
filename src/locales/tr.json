@@ -50,6 +50,8 @@
     "noData": "Supabase yapılandırılmamış.",
     "topParty": "En yüksek parti",
     "refresh": "Yenile",
+    "modePins": "İğneler",
+    "modeHeatmap": "Isı haritası",
     "resultsList": "Tüm sonuçlar",
     "resultsTotal": "{{count}} kaydedilen sonuç",
     "unknownLocation": "Bilinmeyen konum"
