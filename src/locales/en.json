@@ -48,7 +48,9 @@
     "loading": "Loading map...",
     "noData": "Supabase not configured.",
     "topParty": "Top party",
-    "refresh": "Refresh"
+    "refresh": "Refresh",
+    "resultsList": "All results",
+    "unknownLocation": "Unknown location"
   },
   "partyDetail": {
     "match": "Match",

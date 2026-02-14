@@ -62,6 +62,21 @@ export default function ResultsMap({ onBack }) {
   const firstWithLocation = displayResults.find((r) => r.lat && r.lng);
   const defaultCenter = [51.1657, 10.4515]; // Deutschland
 
+  const formatLocation = (r) => {
+    const parts = [r.city, r.region, r.country].filter(Boolean);
+    return parts.length ? parts.join(", ") : t("map.unknownLocation");
+  };
+
+  const formatDate = (dateStr) => {
+    if (!dateStr) return "";
+    try {
+      const d = new Date(dateStr);
+      return d.toLocaleDateString(undefined, { day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" });
+    } catch {
+      return "";
+    }
+  };
+
   return (
     <div className="map-page">
       <LanguageSwitcher />
@@ -83,7 +98,33 @@ export default function ResultsMap({ onBack }) {
       {loading ? (
         <p className="map-loading">{t("map.loading")}</p>
       ) : (
-        <div className="map-container">
+        <div className="map-with-list">
+          <aside className="map-results-list">
+            <h3>{t("map.resultsList")}</h3>
+            {displayResults.length === 0 ? (
+              <p className="map-list-empty">{t("map.noData")}</p>
+            ) : (
+              <ul>
+                {displayResults.map((r) => {
+                  const top = getTopParty(r);
+                  return (
+                    <li key={r.id} className="map-list-item">
+                      <span className="map-list-location">{formatLocation(r)}</span>
+                      {top && (
+                        <span className="map-list-party" style={{ color: top.color }}>
+                          {top.name} {top.match}%
+                        </span>
+                      )}
+                      {r.created_at && (
+                        <span className="map-list-date">{formatDate(r.created_at)}</span>
+                      )}
+                    </li>
+                  );
+                })}
+              </ul>
+            )}
+          </aside>
+          <div className="map-container">
           <MapContainer
             center={defaultCenter}
             zoom={5}
@@ -115,6 +156,7 @@ export default function ResultsMap({ onBack }) {
               );
             })}
           </MapContainer>
+          </div>
         </div>
       )}
     </div>

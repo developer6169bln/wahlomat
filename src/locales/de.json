@@ -48,7 +48,9 @@
     "loading": "Karte wird geladen...",
     "noData": "Supabase nicht konfiguriert.",
     "topParty": "Top-Partei",
-    "refresh": "Aktualisieren"
+    "refresh": "Aktualisieren",
+    "resultsList": "Alle Ergebnisse",
+    "unknownLocation": "Unbekannter Standort"
   },
   "partyDetail": {
     "match": "Übereinstimmung",
