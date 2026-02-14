@@ -49,17 +49,31 @@ function HeatmapLayers({ results, getTopParty }) {
 
   useEffect(() => {
     if (!L.heatLayer) return;
-    const pointsByParty = {};
+    // Schritt 1: Anzahl pro Standort pro Partei (Region = gerundete Koordinaten)
+    const countByPartyAndLocation = {};
+    const PRECISION = 3;
     results.forEach((r) => {
       if (!r.lat || !r.lng) return;
       const top = getTopParty(r);
       if (!top) return;
-      if (!pointsByParty[top.id]) pointsByParty[top.id] = { color: top.color, points: [] };
-      pointsByParty[top.id].points.push([r.lat, r.lng, 1]);
+      const key = `${r.lat.toFixed(PRECISION)}_${r.lng.toFixed(PRECISION)}`;
+      if (!countByPartyAndLocation[top.id]) countByPartyAndLocation[top.id] = {};
+      countByPartyAndLocation[top.id][key] = (countByPartyAndLocation[top.id][key] || 0) + 1;
     });
 
     const layers = [];
-    Object.entries(pointsByParty).forEach(([partyId, { color, points }]) => {
+    Object.entries(countByPartyAndLocation).forEach(([partyId, locationCounts]) => {
+      const topParty = results.find((r) => getTopParty(r)?.id === partyId);
+      const partyColor = topParty ? getTopParty(topParty)?.color : "#888";
+      const counts = Object.values(locationCounts);
+      const min = Math.min(...counts);
+      const max = Math.max(...counts);
+      const range = max - min || 1;
+      const points = Object.entries(locationCounts).map(([key, count]) => {
+        const [lat, lng] = key.split("_").map(Number);
+        const intensity = (count - min) / range;
+        return [lat, lng, Math.max(0.2, intensity)];
+      });
       const hexToRgba = (hex, a) => {
         const r = parseInt(hex.slice(1, 3), 16);
         const g = parseInt(hex.slice(3, 5), 16);
@@ -74,9 +88,9 @@ function HeatmapLayers({ results, getTopParty }) {
         max: 1,
         gradient: {
           0: "rgba(255,255,255,0)",
-          0.3: hexToRgba(color, 0.4),
-          0.6: hexToRgba(color, 0.7),
-          1: hexToRgba(color, 1),
+          0.3: hexToRgba(partyColor, 0.4),
+          0.6: hexToRgba(partyColor, 0.7),
+          1: hexToRgba(partyColor, 1),
         },
       });
       map.addLayer(layer);
