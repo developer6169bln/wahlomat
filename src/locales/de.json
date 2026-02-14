@@ -33,10 +33,8 @@
     "showMap": "Karte anzeigen"
   },
   "save": {
-    "button": "Ergebnis mit Standort speichern",
-    "buttonNoLocation": "Ohne Standort speichern",
-    "hint": "Dein Standort wird abgefragt. Bei Mobilgeräten erscheint eine Berechtigungsanfrage – tippe auf „Erlauben“ oder „Zulassen“. Wenn keine Abfrage erscheint (z.B. iPhone Safari): „Ohne Standort speichern“ nutzen.",
-    "requesting": "Standort wird abgefragt...",
+    "button": "Ergebnis speichern",
+    "hint": "Standort wird über deine IP-Adresse ermittelt – keine Berechtigungen nötig.",
     "saving": "Wird gespeichert...",
     "success": "Ergebnis gespeichert!",
     "error": "Speichern fehlgeschlagen.",

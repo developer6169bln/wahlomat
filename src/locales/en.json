@@ -33,10 +33,8 @@
     "showMap": "Show map"
   },
   "save": {
-    "button": "Save result with location",
-    "buttonNoLocation": "Save without location",
-    "hint": "Your location will be requested. On mobile, tap \"Allow\" or \"Grant\" when the permission prompt appears. If no prompt appears (e.g. iPhone Safari): use \"Save without location\".",
-    "requesting": "Requesting location...",
+    "button": "Save result",
+    "hint": "Location is determined via your IP address – no permissions required.",
     "saving": "Saving...",
     "success": "Result saved!",
     "error": "Save failed.",
