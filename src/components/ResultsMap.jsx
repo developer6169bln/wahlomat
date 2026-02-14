@@ -46,16 +46,29 @@ function HeatmapLayers({ results, getTopParty }) {
       const top = getTopParty(r);
       if (!top) return;
       if (!pointsByParty[top.id]) pointsByParty[top.id] = { color: top.color, points: [] };
-      pointsByParty[top.id].points.push([r.lat, r.lng, 0.5]);
+      pointsByParty[top.id].points.push([r.lat, r.lng, 1]);
     });
 
     const layers = [];
     Object.entries(pointsByParty).forEach(([partyId, { color, points }]) => {
+      const hexToRgba = (hex, a) => {
+        const r = parseInt(hex.slice(1, 3), 16);
+        const g = parseInt(hex.slice(3, 5), 16);
+        const b = parseInt(hex.slice(5, 7), 16);
+        return `rgba(${r},${g},${b},${a})`;
+      };
       const layer = L.heatLayer(points, {
-        radius: 25,
-        blur: 15,
-        maxZoom: 17,
-        gradient: { 0: "rgba(255,255,255,0)", 0.5: color + "80", 1: color },
+        radius: 35,
+        blur: 20,
+        maxZoom: 6,
+        minOpacity: 0.4,
+        max: 1,
+        gradient: {
+          0: "rgba(255,255,255,0)",
+          0.3: hexToRgba(color, 0.4),
+          0.6: hexToRgba(color, 0.7),
+          1: hexToRgba(color, 1),
+        },
       });
       map.addLayer(layer);
       layers.push(layer);
