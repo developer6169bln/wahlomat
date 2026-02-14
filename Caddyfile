@@ -1,0 +1,14 @@
+{
+	admin off
+	auto_https off
+}
+
+:{$PORT:80} {
+	root * /var/www/html
+	encode gzip zstd
+	file_server {
+		hide .git
+		hide .env*
+	}
+	try_files {path} {path}/ /index.html
+}
