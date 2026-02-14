@@ -36,7 +36,6 @@
   "save": {
     "button": "Ergebnis speichern",
     "hint": "Standort wird über deine IP-Adresse ermittelt – keine Berechtigungen nötig.",
-    "hintNoLocation": "Ergebnis wird ohne Standort gespeichert.",
     "saving": "Wird gespeichert...",
     "success": "Ergebnis gespeichert!",
     "error": "Speichern fehlgeschlagen.",
@@ -85,8 +84,8 @@
     },
     "settings": {
       "title": "Einstellungen",
-      "mapEnabled": "Karte & Standort aktiv",
-      "mapEnabledHint": "Wenn deaktiviert: Keine Karte, keine Standorterfassung beim Speichern. Nur Ergebnisliste."
+      "mapEnabled": "Karte & Standort anzeigen",
+      "mapEnabledHint": "Standort wird immer gespeichert. Wenn deaktiviert: Karte und Standortanzeige werden ausgeblendet."
     },
     "reset": "Auf Standard zurücksetzen",
     "resetConfirm": "Alle Daten auf die Standardwerte zurücksetzen? Gespeicherte Änderungen gehen verloren.",

@@ -36,7 +36,6 @@
   "save": {
     "button": "Sonucu kaydet",
     "hint": "Konum IP adresinizle belirlenir – izin gerekmez.",
-    "hintNoLocation": "Sonuç konum olmadan kaydedilir.",
     "saving": "Kaydediliyor...",
     "success": "Sonuç kaydedildi!",
     "error": "Kayıt başarısız.",
@@ -85,8 +84,8 @@
     },
     "settings": {
       "title": "Ayarlar",
-      "mapEnabled": "Harita ve konum aktif",
-      "mapEnabledHint": "Devre dışı: Harita yok, kaydetmede konum yok. Sadece sonuç listesi."
+      "mapEnabled": "Harita ve konum göster",
+      "mapEnabledHint": "Konum her zaman kaydedilir. Devre dışı: Harita ve konum gösterimi gizlenir."
     },
     "reset": "Varsayılana sıfırla",
     "resetConfirm": "Tüm veriler varsayılan değerlere sıfırlansın mı? Kaydedilen değişiklikler kaybolacak.",
