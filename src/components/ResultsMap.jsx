@@ -26,11 +26,20 @@ function createColoredIcon(color) {
   });
 }
 
-function MapCenter({ center }) {
+function MapBoundsFit({ points }) {
   const map = useMap();
   useEffect(() => {
-    if (center) map.setView(center, 6);
-  }, [center, map]);
+    if (!points || points.length === 0) return;
+    const positions = points.map((p) => [p.lat + (p.offsetLat || 0), p.lng + (p.offsetLng || 0)]);
+    const bounds = L.latLngBounds(positions);
+    if (bounds.isValid()) {
+      if (positions.length === 1) {
+        map.setView(positions[0], 12);
+      } else {
+        map.fitBounds(bounds, { padding: [30, 30], maxZoom: 15 });
+      }
+    }
+  }, [map, points]);
   return null;
 }
 
@@ -246,7 +255,7 @@ export default function ResultsMap({ onBack }) {
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
               />
-              <MapCenter center={firstWithLocation ? [firstWithLocation.lat, firstWithLocation.lng] : null} />
+              <MapBoundsFit points={mapMode === "pins" ? pinPositions : resultsWithLocation} />
               {mapMode === "pins" &&
                 pinPositions.map((r) => {
                   const top = getTopParty(r);
