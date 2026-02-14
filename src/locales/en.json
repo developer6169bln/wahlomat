@@ -30,11 +30,13 @@
     "title": "Your result",
     "subtitle": "Sorted by match with your answers",
     "restart": "Start over",
-    "showMap": "Show map"
+    "showMap": "Show map",
+    "showList": "Show results list"
   },
   "save": {
     "button": "Save result",
     "hint": "Location is determined via your IP address – no permissions required.",
+    "hintNoLocation": "Result will be saved without location.",
     "saving": "Saving...",
     "success": "Result saved!",
     "error": "Save failed.",
@@ -78,7 +80,13 @@
     "tabs": {
       "theses": "Theses",
       "parties": "Parties",
-      "positions": "Positions"
+      "positions": "Positions",
+      "settings": "Settings"
+    },
+    "settings": {
+      "title": "Settings",
+      "mapEnabled": "Map & location enabled",
+      "mapEnabledHint": "When disabled: No map, no location when saving. Results list only."
     },
     "reset": "Reset to default",
     "resetConfirm": "Reset all data to default values? Saved changes will be lost.",

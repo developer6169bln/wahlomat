@@ -8,6 +8,7 @@ export default function AdminLayout({ activeTab, onTabChange, onBack, children }
     { id: "theses", label: t("admin.tabs.theses") },
     { id: "parties", label: t("admin.tabs.parties") },
     { id: "positions", label: t("admin.tabs.positions") },
+    { id: "settings", label: t("admin.tabs.settings") },
   ];
 
   return (

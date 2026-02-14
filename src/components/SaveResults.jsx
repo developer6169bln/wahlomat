@@ -2,9 +2,11 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { saveResult } from "../lib/api";
 import { getLocationByIP } from "../utils/geolocation";
+import { useData } from "../context/DataContext";
 
 export default function SaveResults({ answers, partyMatches, onSaved }) {
   const { t } = useTranslation();
+  const { mapEnabled } = useData();
   const [status, setStatus] = useState("idle");
   const [error, setError] = useState("");
 
@@ -14,7 +16,15 @@ export default function SaveResults({ answers, partyMatches, onSaved }) {
     setStatus("saving");
 
     try {
-      const { lat, lng, city, region, country } = await getLocationByIP();
+      let lat = null, lng = null, city = null, region = null, country = null;
+      if (mapEnabled) {
+        const loc = await getLocationByIP();
+        lat = loc.lat;
+        lng = loc.lng;
+        city = loc.city;
+        region = loc.region;
+        country = loc.country;
+      }
 
       await saveResult({
         lat,
@@ -48,7 +58,7 @@ export default function SaveResults({ answers, partyMatches, onSaved }) {
         {status === "saving" ? t("save.saving") : t("save.button")}
       </button>
       {error && <p className="save-error">{error}</p>}
-      <p className="save-hint">{t("save.hint")}</p>
+      <p className="save-hint">{mapEnabled ? t("save.hint") : t("save.hintNoLocation")}</p>
     </div>
   );
 }

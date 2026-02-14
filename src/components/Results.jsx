@@ -4,9 +4,9 @@ import { useData } from "../context/DataContext";
 import LanguageSwitcher from "./LanguageSwitcher";
 import SaveResults from "./SaveResults";
 
-export default function Results({ answers, onRestart, onSelectParty, onShowMap }) {
+export default function Results({ answers, onRestart, onSelectParty, onShowMap, onShowList }) {
   const { t } = useTranslation();
-  const { parties, positions } = useData();
+  const { parties, positions, mapEnabled } = useData();
   const results = getSortedResults(answers, parties, positions);
   const partyMatches = results.map(({ id, name, color, match }) => ({ id, name, color, match }));
 
@@ -44,9 +44,14 @@ export default function Results({ answers, onRestart, onSelectParty, onShowMap }
       />
 
       <div className="results-actions">
-        {onShowMap && (
+        {mapEnabled && onShowMap && (
           <button className="btn-map" onClick={onShowMap}>
             {t("results.showMap")}
+          </button>
+        )}
+        {!mapEnabled && onShowList && (
+          <button className="btn-map" onClick={onShowList}>
+            {t("results.showList")}
           </button>
         )}
         <button className="btn-restart" onClick={onRestart}>

@@ -30,11 +30,13 @@ function saveToStorage(data) {
 export function DataProvider({ children }) {
   const [data, setData] = useState(() => {
     const stored = loadFromStorage();
-    return stored || {
+    const base = stored || {
       theses: defaultTheses,
       parties: defaultParties,
       positions: { ...defaultPositions },
     };
+    if (base.mapEnabled === undefined) base.mapEnabled = true;
+    return base;
   });
 
   useEffect(() => {
@@ -54,11 +56,16 @@ export function DataProvider({ children }) {
   }, []);
 
   const resetToDefault = useCallback(() => {
-    setData({
+    setData((prev) => ({
       theses: defaultTheses,
       parties: defaultParties,
       positions: { ...defaultPositions },
-    });
+      mapEnabled: prev.mapEnabled ?? true,
+    }));
+  }, []);
+
+  const updateMapEnabled = useCallback((enabled) => {
+    setData((prev) => ({ ...prev, mapEnabled: enabled }));
   }, []);
 
   return (
@@ -67,9 +74,11 @@ export function DataProvider({ children }) {
         theses: data.theses,
         parties: data.parties,
         positions: data.positions,
+        mapEnabled: data.mapEnabled ?? true,
         updateTheses,
         updateParties,
         updatePositions,
+        updateMapEnabled,
         resetToDefault,
       }}
     >

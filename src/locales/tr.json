@@ -30,11 +30,13 @@
     "title": "Sonucun",
     "subtitle": "Cevaplarına göre sıralanmış",
     "restart": "Baştan başla",
-    "showMap": "Haritayı göster"
+    "showMap": "Haritayı göster",
+    "showList": "Sonuç listesini göster"
   },
   "save": {
     "button": "Sonucu kaydet",
     "hint": "Konum IP adresinizle belirlenir – izin gerekmez.",
+    "hintNoLocation": "Sonuç konum olmadan kaydedilir.",
     "saving": "Kaydediliyor...",
     "success": "Sonuç kaydedildi!",
     "error": "Kayıt başarısız.",
@@ -78,7 +80,13 @@
     "tabs": {
       "theses": "Tezler",
       "parties": "Partiler",
-      "positions": "Pozisyonlar"
+      "positions": "Pozisyonlar",
+      "settings": "Ayarlar"
+    },
+    "settings": {
+      "title": "Ayarlar",
+      "mapEnabled": "Harita ve konum aktif",
+      "mapEnabledHint": "Devre dışı: Harita yok, kaydetmede konum yok. Sadece sonuç listesi."
     },
     "reset": "Varsayılana sıfırla",
     "resetConfirm": "Tüm veriler varsayılan değerlere sıfırlansın mı? Kaydedilen değişiklikler kaybolacak.",

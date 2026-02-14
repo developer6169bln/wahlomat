@@ -30,11 +30,13 @@
     "title": "Dein Ergebnis",
     "subtitle": "Sortiert nach Übereinstimmung mit deinen Antworten",
     "restart": "Von vorne beginnen",
-    "showMap": "Karte anzeigen"
+    "showMap": "Karte anzeigen",
+    "showList": "Ergebnisliste anzeigen"
   },
   "save": {
     "button": "Ergebnis speichern",
     "hint": "Standort wird über deine IP-Adresse ermittelt – keine Berechtigungen nötig.",
+    "hintNoLocation": "Ergebnis wird ohne Standort gespeichert.",
     "saving": "Wird gespeichert...",
     "success": "Ergebnis gespeichert!",
     "error": "Speichern fehlgeschlagen.",
@@ -78,7 +80,13 @@
     "tabs": {
       "theses": "Thesen",
       "parties": "Parteien",
-      "positions": "Positionen"
+      "positions": "Positionen",
+      "settings": "Einstellungen"
+    },
+    "settings": {
+      "title": "Einstellungen",
+      "mapEnabled": "Karte & Standort aktiv",
+      "mapEnabledHint": "Wenn deaktiviert: Keine Karte, keine Standorterfassung beim Speichern. Nur Ergebnisliste."
     },
     "reset": "Auf Standard zurücksetzen",
     "resetConfirm": "Alle Daten auf die Standardwerte zurücksetzen? Gespeicherte Änderungen gehen verloren.",

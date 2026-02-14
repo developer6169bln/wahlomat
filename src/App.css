@@ -787,6 +787,161 @@
   padding: 2rem;
 }
 
+.admin-settings h2 {
+  font-size: 1.1rem;
+  color: var(--color-primary);
+  margin: 0 0 1rem;
+}
+
+.admin-setting-row {
+  margin-bottom: 1.5rem;
+}
+
+.admin-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+}
+
+.admin-toggle input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.admin-toggle-slider {
+  position: relative;
+  width: 48px;
+  height: 26px;
+  background: #cbd5e1;
+  border-radius: 26px;
+  transition: background 0.2s;
+}
+
+.admin-toggle-slider::before {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  left: 3px;
+  top: 3px;
+  background: white;
+  border-radius: 50%;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s;
+}
+
+.admin-toggle input:checked + .admin-toggle-slider {
+  background: var(--color-primary);
+}
+
+.admin-toggle input:checked + .admin-toggle-slider::before {
+  transform: translateX(22px);
+}
+
+.admin-toggle-label {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.admin-setting-hint {
+  font-size: 0.85rem;
+  color: #64748b;
+  margin: 0.5rem 0 0 64px;
+}
+
+/* ========== Results List (ohne Karte) ========== */
+.results-list-page {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.results-list-header {
+  position: relative;
+  padding: 1rem 0;
+}
+
+.results-list-header .btn-back {
+  background: transparent;
+  border: none;
+  color: #64748b;
+  padding: 0.5rem 0;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.results-list-header .btn-back:hover {
+  color: var(--color-primary);
+}
+
+.results-list-header h1 {
+  font-size: 1.25rem;
+  color: var(--color-primary);
+  margin: 0 0 0.25rem;
+}
+
+.results-list-header .btn-refresh {
+  position: absolute;
+  top: 1rem;
+  right: 0;
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  width: 2.5rem;
+  height: 2.5rem;
+  font-size: 1.25rem;
+  cursor: pointer;
+}
+
+.results-list-header .btn-refresh:hover:not(:disabled) {
+  background: var(--color-primary);
+  color: white;
+  border-color: var(--color-primary);
+}
+
+.results-list-loading,
+.results-list-empty {
+  padding: 2rem;
+  text-align: center;
+  color: #64748b;
+}
+
+.results-list-full {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.results-list-item {
+  padding: 1rem;
+  background: var(--color-surface-2);
+  border-radius: var(--radius);
+  margin-bottom: 0.5rem;
+  border: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.results-list-party {
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.results-list-location {
+  font-size: 0.9rem;
+  color: #475569;
+}
+
+.results-list-date {
+  font-size: 0.8rem;
+  color: #94a3b8;
+}
+
 .positions-grid-wrapper {
   overflow-x: auto;
   margin-bottom: 1.5rem;

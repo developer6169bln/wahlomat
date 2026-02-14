@@ -6,9 +6,10 @@ import Results from "./components/Results";
 import PartyDetail from "./components/PartyDetail";
 import AdminPage from "./components/Admin/AdminPage";
 import ResultsMap from "./components/ResultsMap";
+import ResultsList from "./components/ResultsList";
 import "./App.css";
 
-const VIEWS = { start: "start", theses: "theses", results: "results", detail: "detail", admin: "admin", map: "map" };
+const VIEWS = { start: "start", theses: "theses", results: "results", detail: "detail", admin: "admin", map: "map", resultsList: "resultsList" };
 
 function AppContent() {
   const [view, setView] = useState(VIEWS.start);
@@ -31,7 +32,7 @@ function AppContent() {
   };
 
   return (
-    <div className={`app ${view === VIEWS.map ? "app-fullwidth" : ""}`}>
+    <div className={`app ${(view === VIEWS.map || view === VIEWS.resultsList) ? "app-fullwidth" : ""}`}>
       {view === VIEWS.start && (
         <StartPage
           onStart={() => setView(VIEWS.theses)}
@@ -51,6 +52,7 @@ function AppContent() {
           onRestart={handleRestart}
           onSelectParty={handleSelectParty}
           onShowMap={() => setView(VIEWS.map)}
+          onShowList={() => setView(VIEWS.resultsList)}
         />
       )}
       {view === VIEWS.detail && selectedParty && (
@@ -65,6 +67,9 @@ function AppContent() {
       )}
       {view === VIEWS.map && (
         <ResultsMap onBack={() => setView(VIEWS.results)} />
+      )}
+      {view === VIEWS.resultsList && (
+        <ResultsList onBack={() => setView(VIEWS.results)} />
       )}
     </div>
   );
