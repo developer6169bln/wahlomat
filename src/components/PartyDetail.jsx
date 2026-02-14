@@ -1,5 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { useData } from "../context/DataContext";
+import { useThesisTranslation } from "../hooks/useThesisTranslation";
 import LanguageSwitcher from "./LanguageSwitcher";
 
 const POSITION_KEYS = {
@@ -14,6 +15,7 @@ const ANSWER_KEYS = { "-1": "disagree", "0": "neutral", "1": "agree" };
 
 export default function PartyDetail({ party, answers, onBack }) {
   const { t } = useTranslation();
+  const { getThesis } = useThesisTranslation();
   const { theses, positions } = useData();
   const partyPositions = positions[party.id] || {};
 
@@ -45,7 +47,7 @@ export default function PartyDetail({ party, answers, onBack }) {
 
             return (
               <li key={thesis.id} className="comparison-item">
-                <p className="comparison-thesis">{thesis.text}</p>
+                <p className="comparison-thesis">{getThesis(thesis).text}</p>
                 <div className="comparison-answers">
                   <div className="comparison-user">
                     <span className="label">{t("partyDetail.yourAnswer")}:</span>

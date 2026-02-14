@@ -41,6 +41,16 @@
     "positionRatherDisagree": "Eher nicht zu",
     "positionDisagree": "Stimme nicht zu"
   },
+  "thesesData": {
+    "1": { "text": "Die Landesregierung soll mehr in den Ausbau von Wind- und Solarenergie investieren.", "category": "Energie & Klima" },
+    "2": { "text": "Das Schulsystem soll durch ein gemeinsames längeres Lernen reformiert werden.", "category": "Bildung" },
+    "3": { "text": "Der öffentliche Nahverkehr soll kostenlos werden.", "category": "Verkehr" },
+    "4": { "text": "Die Landesregierung soll mehr bezahlbaren Wohnraum schaffen.", "category": "Wohnen" },
+    "5": { "text": "Die Digitalisierung in Behörden soll beschleunigt werden.", "category": "Verwaltung" },
+    "6": { "text": "Es soll mehr Polizeipräsenz in den Innenstädten geben.", "category": "Inneres" },
+    "7": { "text": "Die Kita-Plätze sollen für alle kostenlos sein.", "category": "Familie" },
+    "8": { "text": "Das Land soll den Ausbau von Radwegen stärker fördern.", "category": "Verkehr" }
+  },
   "admin": {
     "title": "Admin-Bereich",
     "backToApp": "← Zurück zum Türk-O-Mat",

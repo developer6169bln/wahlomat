@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useData } from "../context/DataContext";
+import { useThesisTranslation } from "../hooks/useThesisTranslation";
 import LanguageSwitcher from "./LanguageSwitcher";
 
 export default function ThesisFlow({ answers, onAnswer, onFinish }) {
   const { t } = useTranslation();
+  const { getThesis } = useThesisTranslation();
   const { theses } = useData();
   const [currentIndex, setCurrentIndex] = useState(0);
   const thesis = theses[currentIndex];
@@ -61,8 +63,8 @@ export default function ThesisFlow({ answers, onAnswer, onFinish }) {
       </div>
 
       <article className="thesis-card">
-        <span className="thesis-category">{thesis.category}</span>
-        <h2 className="thesis-text">{thesis.text}</h2>
+        <span className="thesis-category">{getThesis(thesis).category}</span>
+        <h2 className="thesis-text">{getThesis(thesis).text}</h2>
 
         <div className="answer-buttons">
           {ANSWER_OPTIONS.map((opt) => (

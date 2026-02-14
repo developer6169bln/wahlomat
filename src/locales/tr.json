@@ -41,6 +41,16 @@
     "positionRatherDisagree": "Kısmen katılmıyorum",
     "positionDisagree": "Katılmıyorum"
   },
+  "thesesData": {
+    "1": { "text": "Eyalet hükümeti rüzgar ve güneş enerjisine daha fazla yatırım yapmalı.", "category": "Enerji ve İklim" },
+    "2": { "text": "Okul sistemi daha uzun ortak öğrenme ile reforme edilmeli.", "category": "Eğitim" },
+    "3": { "text": "Toplu taşıma ücretsiz olmalı.", "category": "Ulaşım" },
+    "4": { "text": "Eyalet hükümeti daha fazla uygun fiyatlı konut yaratmalı.", "category": "Konut" },
+    "5": { "text": "Kamu kurumlarında dijitalleşme hızlandırılmalı.", "category": "Yönetim" },
+    "6": { "text": "Şehir merkezlerinde daha fazla polis bulunmalı.", "category": "İçişleri" },
+    "7": { "text": "Kreş yerleri herkes için ücretsiz olmalı.", "category": "Aile" },
+    "8": { "text": "Eyalet bisiklet yollarının genişletilmesini daha güçlü desteklemeli.", "category": "Ulaşım" }
+  },
   "admin": {
     "title": "Yönetim alanı",
     "backToApp": "← Türk-O-Mat'a dön",

@@ -1,8 +1,10 @@
 import { useTranslation } from "react-i18next";
 import { useData } from "../../context/DataContext";
+import { useThesisTranslation } from "../../hooks/useThesisTranslation";
 
 export default function PositionsAdmin() {
   const { t } = useTranslation();
+  const { getThesis } = useThesisTranslation();
   const { theses, parties, positions, updatePositions } = useData();
 
   const POSITION_OPTIONS = [
@@ -63,8 +65,8 @@ export default function PositionsAdmin() {
             {theses.map((thesis) => (
               <tr key={thesis.id}>
                 <td className="col-thesis">
-                  <span className="thesis-cat">{thesis.category}</span>
-                  {thesis.text}
+                  <span className="thesis-cat">{getThesis(thesis).category}</span>
+                  {getThesis(thesis).text}
                 </td>
                 {parties.map((party) => (
                   <td key={party.id} className="col-party">

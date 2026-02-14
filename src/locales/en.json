@@ -41,6 +41,16 @@
     "positionRatherDisagree": "Rather disagree",
     "positionDisagree": "Disagree"
   },
+  "thesesData": {
+    "1": { "text": "The state government should invest more in wind and solar energy.", "category": "Energy & Climate" },
+    "2": { "text": "The school system should be reformed through longer joint learning.", "category": "Education" },
+    "3": { "text": "Public transport should become free.", "category": "Transport" },
+    "4": { "text": "The state government should create more affordable housing.", "category": "Housing" },
+    "5": { "text": "Digitalisation in authorities should be accelerated.", "category": "Administration" },
+    "6": { "text": "There should be more police presence in city centres.", "category": "Interior" },
+    "7": { "text": "Daycare places should be free for everyone.", "category": "Family" },
+    "8": { "text": "The state should promote the expansion of cycle paths more strongly.", "category": "Transport" }
+  },
   "admin": {
     "title": "Admin area",
     "backToApp": "← Back to Türk-O-Mat",
