@@ -30,11 +30,6 @@ export default function ResultsList({ onBack }) {
     return sorted[0];
   };
 
-  const formatLocation = (r) => {
-    const parts = [r.city, r.region, r.country].filter(Boolean);
-    return parts.length ? parts.join(", ") : t("map.unknownLocation");
-  };
-
   const formatDate = (dateStr) => {
     if (!dateStr) return "";
     try {
@@ -77,7 +72,6 @@ export default function ResultsList({ onBack }) {
                     {top.name} {top.match}%
                   </span>
                 )}
-                <span className="results-list-location">{formatLocation(r)}</span>
                 {r.created_at && (
                   <span className="results-list-date">{formatDate(r.created_at)}</span>
                 )}
