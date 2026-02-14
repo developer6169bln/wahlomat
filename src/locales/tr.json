@@ -51,6 +51,7 @@
     "topParty": "En yüksek parti",
     "refresh": "Yenile",
     "resultsList": "Tüm sonuçlar",
+    "resultsTotal": "{{count}} kaydedilen sonuç",
     "unknownLocation": "Bilinmeyen konum"
   },
   "partyDetail": {

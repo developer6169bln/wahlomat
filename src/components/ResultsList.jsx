@@ -30,15 +30,22 @@ export default function ResultsList({ onBack }) {
     return sorted[0];
   };
 
-  const formatDate = (dateStr) => {
-    if (!dateStr) return "";
-    try {
-      const d = new Date(dateStr);
-      return d.toLocaleDateString(undefined, { day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" });
-    } catch {
-      return "";
-    }
-  };
+  // Gesamtprozente nach Parteien: Wie oft war welche Partei Top-Ergebnis?
+  const partyTotals = results.reduce((acc, r) => {
+    const top = getTopParty(r);
+    if (!top) return acc;
+    if (!acc[top.id]) acc[top.id] = { ...top, count: 0 };
+    acc[top.id].count += 1;
+    return acc;
+  }, {});
+
+  const totalCount = results.length;
+  const partySummary = Object.values(partyTotals)
+    .map((p) => ({
+      ...p,
+      percent: totalCount > 0 ? Math.round((p.count / totalCount) * 100) : 0,
+    }))
+    .sort((a, b) => b.percent - a.percent);
 
   return (
     <div className="results-list-page">
@@ -62,23 +69,19 @@ export default function ResultsList({ onBack }) {
       ) : results.length === 0 ? (
         <p className="results-list-empty">{t("map.noData")}</p>
       ) : (
-        <ul className="results-list-full">
-          {results.map((r) => {
-            const top = getTopParty(r);
-            return (
-              <li key={r.id} className="results-list-item">
-                {top && (
-                  <span className="results-list-party" style={{ color: top.color }}>
-                    {top.name} {top.match}%
-                  </span>
-                )}
-                {r.created_at && (
-                  <span className="results-list-date">{formatDate(r.created_at)}</span>
-                )}
+        <div className="results-list-summary">
+          <p className="results-list-total">{t("map.resultsTotal", { count: totalCount })}</p>
+          <ul className="results-list-full">
+            {partySummary.map((p) => (
+              <li key={p.id} className="results-list-item">
+                <span className="results-list-party" style={{ color: p.color }}>
+                  {p.name}
+                </span>
+                <span className="results-list-percent">{p.percent}%</span>
               </li>
-            );
-          })}
-        </ul>
+            ))}
+          </ul>
+        </div>
       )}
     </div>
   );

@@ -51,6 +51,7 @@
     "topParty": "Top party",
     "refresh": "Refresh",
     "resultsList": "All results",
+    "resultsTotal": "{{count}} saved results",
     "unknownLocation": "Unknown location"
   },
   "partyDetail": {

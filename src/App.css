@@ -916,6 +916,16 @@
   margin: 0;
 }
 
+.results-list-summary {
+  margin-top: 0.5rem;
+}
+
+.results-list-total {
+  font-size: 0.9rem;
+  color: #64748b;
+  margin: 0 0 1rem;
+}
+
 .results-list-item {
   padding: 1rem;
   background: var(--color-surface-2);
@@ -923,8 +933,8 @@
   margin-bottom: 0.5rem;
   border: 1px solid var(--color-border);
   display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .results-list-party {
@@ -932,14 +942,10 @@
   font-size: 1rem;
 }
 
-.results-list-location {
-  font-size: 0.9rem;
-  color: #475569;
-}
-
-.results-list-date {
-  font-size: 0.8rem;
-  color: #94a3b8;
+.results-list-percent {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--color-primary);
 }
 
 .positions-grid-wrapper {
