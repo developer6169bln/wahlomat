@@ -34,14 +34,14 @@
   },
   "save": {
     "button": "Konumla sonucu kaydet",
-    "hint": "Konumunuz istenecek. Mobilde izin penceresi açılır.",
+    "hint": "Konumunuz istenecek. Mobilde izin penceresinde \"İzin ver\" veya \"Kabul et\"e dokunun.",
     "requesting": "Konum isteniyor...",
     "saving": "Kaydediliyor...",
     "success": "Sonuç kaydedildi!",
     "error": "Kayıt başarısız.",
-    "locationDenied": "Konum erişimi reddedildi.",
+    "locationDenied": "Konum erişimi reddedildi. Tarayıcı veya cihaz ayarlarından etkinleştirin.",
     "locationUnavailable": "Konum alınamadı.",
-    "locationTimeout": "Zaman aşımı."
+    "locationTimeout": "Zaman aşımı. Konum servislerinin açık olduğundan emin olun."
   },
   "map": {
     "title": "Haritada sonuçlar",

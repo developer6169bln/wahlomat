@@ -34,14 +34,14 @@
   },
   "save": {
     "button": "Save result with location",
-    "hint": "Your location will be requested. On mobile, a permission prompt will appear.",
+    "hint": "Your location will be requested. On mobile, tap \"Allow\" or \"Grant\" when the permission prompt appears.",
     "requesting": "Requesting location...",
     "saving": "Saving...",
     "success": "Result saved!",
     "error": "Save failed.",
-    "locationDenied": "Location access denied.",
+    "locationDenied": "Location access denied. Enable it in your browser or device settings.",
     "locationUnavailable": "Location unavailable.",
-    "locationTimeout": "Location request timed out."
+    "locationTimeout": "Request timed out. Please check if location services are enabled."
   },
   "map": {
     "title": "Results on map",

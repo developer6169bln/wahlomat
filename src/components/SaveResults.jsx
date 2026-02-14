@@ -52,6 +52,7 @@ export default function SaveResults({ answers, partyMatches, onSaved }) {
   return (
     <div className="save-results">
       <button
+        type="button"
         className="btn-save"
         onClick={handleSave}
         disabled={status === "asking" || status === "saving"}

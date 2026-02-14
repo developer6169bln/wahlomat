@@ -34,14 +34,14 @@
   },
   "save": {
     "button": "Ergebnis mit Standort speichern",
-    "hint": "Dein Standort wird abgefragt. Bei Mobilgeräten erscheint eine Berechtigungsanfrage.",
+    "hint": "Dein Standort wird abgefragt. Bei Mobilgeräten erscheint eine Berechtigungsanfrage – tippe auf „Erlauben“ oder „Zulassen“.",
     "requesting": "Standort wird abgefragt...",
     "saving": "Wird gespeichert...",
     "success": "Ergebnis gespeichert!",
     "error": "Speichern fehlgeschlagen.",
-    "locationDenied": "Standortzugriff wurde verweigert.",
+    "locationDenied": "Standortzugriff wurde verweigert. Erlaube den Zugriff in den Browser- oder Geräteeinstellungen.",
     "locationUnavailable": "Standort konnte nicht ermittelt werden.",
-    "locationTimeout": "Zeitüberschreitung."
+    "locationTimeout": "Zeitüberschreitung. Bitte prüfe, ob Standortdienste aktiviert sind."
   },
   "map": {
     "title": "Ergebnisse auf der Karte",

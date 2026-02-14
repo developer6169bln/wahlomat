@@ -1,5 +1,6 @@
 /**
  * Fordert Standort vom User an. Bei Mobilgeräten wird die Browser-Berechtigung abgefragt.
+ * iOS/Android: Muss in direkter Reaktion auf einen Klick/Tap aufgerufen werden (User-Geste).
  */
 export function requestLocation() {
   return new Promise((resolve, reject) => {
@@ -8,11 +9,46 @@ export function requestLocation() {
       return;
     }
 
-    navigator.geolocation.getCurrentPosition(
-      (pos) => resolve({ lat: pos.coords.latitude, lng: pos.coords.longitude }),
-      (err) => reject(err),
-      { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
-    );
+    if (!window.isSecureContext) {
+      reject(new Error("Standortzugriff erfordert HTTPS"));
+      return;
+    }
+
+    const options = {
+      enableHighAccuracy: false, // Schneller auf Mobilgeräten, weniger Probleme mit iOS
+      timeout: 20000,
+      maximumAge: 0,
+    };
+
+    // watchPosition + clearWatch: Auf iOS oft zuverlässiger als getCurrentPosition
+    let watchId = null;
+
+    const onSuccess = (pos) => {
+      if (watchId !== null) {
+        navigator.geolocation.clearWatch(watchId);
+        watchId = null;
+      }
+      resolve({ lat: pos.coords.latitude, lng: pos.coords.longitude });
+    };
+
+    const onError = (err) => {
+      if (watchId !== null) {
+        navigator.geolocation.clearWatch(watchId);
+        watchId = null;
+      }
+      reject(err);
+    };
+
+    watchId = navigator.geolocation.watchPosition(onSuccess, onError, options);
+
+    // Fallback-Timeout falls watchPosition hängt
+    setTimeout(() => {
+      if (watchId !== null) {
+        navigator.geolocation.clearWatch(watchId);
+        watchId = null;
+        reject({ code: 3, message: "Zeitüberschreitung" });
+      }
+    }, options.timeout + 2000);
   });
 }
 
