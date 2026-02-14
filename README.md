@@ -1,4 +1,4 @@
-# TÜRKOMAT
+# Türk-O-Mat
 
 Ein interaktives Tool zur politischen Bildung – vergleiche deine Positionen mit denen von Parteien.
 
