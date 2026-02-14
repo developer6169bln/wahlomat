@@ -1,16 +1,12 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { supabase, isSupabaseConfigured } from "../lib/supabase";
+import { saveResult } from "../lib/api";
 import { requestLocation, reverseGeocode } from "../utils/geolocation";
 
 export default function SaveResults({ answers, partyMatches, onSaved }) {
   const { t } = useTranslation();
-  const [status, setStatus] = useState("idle"); // idle | asking | saving | success | error | no-db
+  const [status, setStatus] = useState("idle");
   const [error, setError] = useState("");
-
-  if (!isSupabaseConfigured()) {
-    return null;
-  }
 
   const handleSave = async () => {
     setStatus("asking");
@@ -22,7 +18,7 @@ export default function SaveResults({ answers, partyMatches, onSaved }) {
 
       const { city, region, country } = await reverseGeocode(lat, lng);
 
-      const { error: insertError } = await supabase.from("results").insert({
+      await saveResult({
         lat,
         lng,
         city: city || null,
@@ -31,8 +27,6 @@ export default function SaveResults({ answers, partyMatches, onSaved }) {
         answers,
         party_matches: partyMatches,
       });
-
-      if (insertError) throw insertError;
       setStatus("success");
       onSaved?.();
     } catch (err) {

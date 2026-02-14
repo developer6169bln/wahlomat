@@ -23,17 +23,14 @@
 - **Caddyfile** – Webserver-Konfiguration für SPA  
 - **railway.json** – Nutzung des Dockerfile-Builds  
 
-## Supabase (PostgreSQL) für Ergebnis-Speicherung & Karte
+## Railway PostgreSQL für Ergebnis-Speicherung & Karte
 
-1. Projekt auf [supabase.com](https://supabase.com) erstellen  
-2. SQL-Editor: Migration ausführen → `supabase/migrations/20250214000000_create_results_table.sql`  
-3. Settings → API: URL und anon key kopieren  
-4. Railway: Environment Variables setzen:
-   - `VITE_SUPABASE_URL`
-   - `VITE_SUPABASE_ANON_KEY`
-5. Oder lokal: `.env` mit `VITE_SUPABASE_URL` und `VITE_SUPABASE_ANON_KEY` anlegen (siehe `.env.example`)
+1. **PostgreSQL hinzufügen:** Railway-Dashboard → Projekt → **+ New** → **Database** → **PostgreSQL**
+2. **Verbindung:** Der PostgreSQL-Service stellt `DATABASE_URL` bereit
+3. **App-Service:** In den Settings des App-Services unter **Variables** → **Add Reference** → `Postgres.DATABASE_URL` auswählen (oder den Namen deines DB-Services)
+4. Die Tabelle `results` wird beim ersten Start automatisch erstellt
 
-Ohne Supabase: Speichern-Button und Karte werden ausgeblendet.
+Ohne PostgreSQL: API antwortet mit 503, Speichern schlägt fehl.
 
 ## Domain ändern
 

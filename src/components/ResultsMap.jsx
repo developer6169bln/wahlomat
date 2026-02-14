@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import L from "leaflet";
-import { supabase, isSupabaseConfigured } from "../lib/supabase";
+import { fetchResults } from "../lib/api";
 import LanguageSwitcher from "./LanguageSwitcher";
 import "leaflet/dist/leaflet.css";
 
@@ -28,20 +28,16 @@ export default function ResultsMap({ onBack }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!isSupabaseConfigured()) {
-      setLoading(false);
-      return;
-    }
-    const fetchResults = async () => {
-      const { data, error } = await supabase
-        .from("results")
-        .select("*")
-        .order("created_at", { ascending: false })
-        .limit(500);
-      if (!error) setResults(data || []);
+    const load = async () => {
+      try {
+        const data = await fetchResults();
+        setResults(data || []);
+      } catch {
+        setResults([]);
+      }
       setLoading(false);
     };
-    fetchResults();
+    load();
   }, []);
 
   const getTopParty = (r) => {
@@ -51,16 +47,6 @@ export default function ResultsMap({ onBack }) {
 
   const firstWithLocation = results.find((r) => r.lat && r.lng);
   const defaultCenter = [51.1657, 10.4515]; // Deutschland
-
-  if (!isSupabaseConfigured()) {
-    return (
-      <div className="map-page">
-        <LanguageSwitcher />
-        <button className="btn-back" onClick={onBack}>{t("common.back")}</button>
-        <p className="map-empty">{t("map.noData")}</p>
-      </div>
-    );
-  }
 
   return (
     <div className="map-page">

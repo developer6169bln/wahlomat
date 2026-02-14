@@ -3,7 +3,6 @@ import { getSortedResults } from "../utils/calculateMatch";
 import { useData } from "../context/DataContext";
 import LanguageSwitcher from "./LanguageSwitcher";
 import SaveResults from "./SaveResults";
-import { isSupabaseConfigured } from "../lib/supabase";
 
 export default function Results({ answers, onRestart, onSelectParty, onShowMap }) {
   const { t } = useTranslation();
@@ -45,7 +44,7 @@ export default function Results({ answers, onRestart, onSelectParty, onShowMap }
       />
 
       <div className="results-actions">
-        {onShowMap && isSupabaseConfigured() && (
+        {onShowMap && (
           <button className="btn-map" onClick={onShowMap}>
             {t("results.showMap")}
           </button>

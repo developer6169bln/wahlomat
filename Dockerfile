@@ -9,12 +9,20 @@ RUN npm ci
 COPY . .
 RUN npm run build
 
-# Serve stage
-FROM caddy:alpine
+# Serve stage: Node + Express (API + Static)
+FROM node:20-alpine
 
-COPY --from=builder /app/dist /var/www/html
-COPY Caddyfile /etc/caddy/Caddyfile
+WORKDIR /app
 
-EXPOSE 80
+COPY package*.json ./
+RUN npm ci --omit=dev
 
-CMD ["caddy", "run", "--config", "/etc/caddy/Caddyfile", "--adapter", "caddyfile"]
+COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/server ./server
+
+EXPOSE 3000
+
+ENV NODE_ENV=production
+ENV PORT=8080
+
+CMD ["node", "server/index.js"]
