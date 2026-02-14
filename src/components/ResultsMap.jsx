@@ -45,19 +45,26 @@ export default function ResultsMap({ onBack }) {
   const getTopParty = (r) => {
     const matches = r.party_matches || [];
     if (!matches.length) return null;
-    // Immer nach höchster Übereinstimmung sortieren (falls Reihenfolge nicht stimmt)
-    const sorted = [...matches].sort((a, b) => (b.match ?? 0) - (a.match ?? 0));
+    // Immer numerisch nach höchster Übereinstimmung sortieren (match kann als String gespeichert sein)
+    const sorted = [...matches].sort((a, b) => (Number(b.match) || 0) - (Number(a.match) || 0));
     return sorted[0];
   };
 
-  // Pro Standort nur das neueste Ergebnis anzeigen (API liefert created_at DESC)
-  const deduplicatedByLocation = results.reduce((acc, r) => {
+  // Nach Standort gruppieren (API liefert created_at DESC = neueste zuerst)
+  const groupedByLocation = results.reduce((acc, r) => {
     if (!r.lat || !r.lng) return acc;
-    const key = `${r.lat.toFixed(4)}_${r.lng.toFixed(4)}`;
-    if (!acc[key]) acc[key] = r;
+    const key = `${r.lat.toFixed(5)}_${r.lng.toFixed(5)}`;
+    if (!acc[key]) acc[key] = [];
+    acc[key].push(r);
     return acc;
   }, {});
-  const displayResults = Object.values(deduplicatedByLocation);
+  // Für Liste: pro Standort nur neuestes (für Übersicht)
+  const displayResults = Object.values(groupedByLocation).map((arr) => arr[0]);
+  // Für Karte: alle Gruppen mit allen Ergebnissen pro Marker
+  const mapMarkers = Object.entries(groupedByLocation).map(([key, arr]) => {
+    const [lat, lng] = key.split("_").map(Number);
+    return { lat, lng, results: arr };
+  });
 
   const firstWithLocation = displayResults.find((r) => r.lat && r.lng);
   const defaultCenter = [51.1657, 10.4515]; // Deutschland
@@ -136,20 +143,27 @@ export default function ResultsMap({ onBack }) {
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
             <MapCenter center={firstWithLocation ? [firstWithLocation.lat, firstWithLocation.lng] : null} />
-            {displayResults.map((r) => {
-              const top = getTopParty(r);
+            {mapMarkers.map(({ lat, lng, results: groupResults }) => {
+              const first = groupResults[0];
               return (
-                <Marker key={r.id} position={[r.lat, r.lng]}>
+                <Marker key={`${lat}_${lng}`} position={[lat, lng]}>
                   <Popup>
                     <div className="map-popup">
-                      {r.city && <strong>{r.city}</strong>}
-                      {r.region && <span>, {r.region}</span>}
-                      {top && (
-                        <p className="map-popup-party">
-                          {t("map.topParty")}:{" "}
-                          <span style={{ color: top.color }}>{top.name}</span> ({top.match}%)
-                        </p>
-                      )}
+                      {first.city && <strong>{first.city}</strong>}
+                      {first.region && <span>, {first.region}</span>}
+                      <div className="map-popup-results">
+                        {groupResults.map((r) => {
+                          const top = getTopParty(r);
+                          return top ? (
+                            <p key={r.id} className="map-popup-party">
+                              <span style={{ color: top.color }}>{top.name}</span> {top.match}%
+                              {r.created_at && (
+                                <span className="map-popup-date"> ({formatDate(r.created_at)})</span>
+                              )}
+                            </p>
+                          ) : null;
+                        })}
+                      </div>
                     </div>
                   </Popup>
                 </Marker>
