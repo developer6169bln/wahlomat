@@ -1,6 +1,8 @@
-# Wahl-O-Mat
+# TÜRKOMAT
 
 Ein interaktives Tool zur politischen Bildung – vergleiche deine Positionen mit denen von Parteien.
+
+**Live:** [wahlomat-production.up.railway.app](https://wahlomat-production.up.railway.app/)
 
 ## Starten
 
@@ -27,6 +29,10 @@ src/
 - **`src/data/theses.js`** – Thesen mit Kategorien
 - **`src/data/parties.js`** – Parteien mit Farben
 - **`src/data/positions.js`** – Parteipositionen (-2 bis +2 pro These)
+
+## Deployment
+
+Siehe [DEPLOYMENT.md](DEPLOYMENT.md) für die Railway-Verbindung und Deployment-Anleitung.
 
 ## Hinweis
 
