@@ -1,17 +1,23 @@
+import { useTranslation } from "react-i18next";
+import LanguageSwitcher from "../LanguageSwitcher";
+
 export default function AdminLayout({ activeTab, onTabChange, onBack, children }) {
+  const { t } = useTranslation();
+
   const tabs = [
-    { id: "theses", label: "Thesen" },
-    { id: "parties", label: "Parteien" },
-    { id: "positions", label: "Positionen" },
+    { id: "theses", label: t("admin.tabs.theses") },
+    { id: "parties", label: t("admin.tabs.parties") },
+    { id: "positions", label: t("admin.tabs.positions") },
   ];
 
   return (
     <div className="admin-layout">
+      <LanguageSwitcher />
       <header className="admin-header">
         <button className="admin-back" onClick={onBack}>
-          ← Zurück zum Wahl-O-Mat
+          {t("admin.backToApp")}
         </button>
-        <h1>Admin-Bereich</h1>
+        <h1>{t("admin.title")}</h1>
         <nav className="admin-tabs">
           {tabs.map((tab) => (
             <button

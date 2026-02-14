@@ -1,24 +1,29 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useData } from "../context/DataContext";
-
-const ANSWER_OPTIONS = [
-  { value: -1, label: "Stimme nicht zu" },
-  { value: 0, label: "Neutral" },
-  { value: 1, label: "Stimme zu" },
-];
+import LanguageSwitcher from "./LanguageSwitcher";
 
 export default function ThesisFlow({ answers, onAnswer, onFinish }) {
+  const { t } = useTranslation();
   const { theses } = useData();
   const [currentIndex, setCurrentIndex] = useState(0);
   const thesis = theses[currentIndex];
 
+  const ANSWER_OPTIONS = [
+    { value: -1, label: t("thesis.disagree") },
+    { value: 0, label: t("thesis.neutral") },
+    { value: 1, label: t("thesis.agree") },
+  ];
+
   if (!theses.length) {
     return (
       <div className="thesis-flow">
-        <p>Keine Thesen vorhanden. Bitte im Admin-Bereich Thesen anlegen.</p>
+        <LanguageSwitcher />
+        <p>{t("thesis.noTheses")}</p>
       </div>
     );
   }
+
   const currentAnswer = answers[thesis?.id] ?? null;
   const answeredCount = Object.values(answers).filter((a) => a !== null).length;
   const progress = ((currentIndex + 1) / theses.length) * 100;
@@ -47,10 +52,11 @@ export default function ThesisFlow({ answers, onAnswer, onFinish }) {
 
   return (
     <div className="thesis-flow">
+      <LanguageSwitcher />
       <div className="progress-bar">
         <div className="progress-fill" style={{ width: `${progress}%` }} />
         <span className="progress-text">
-          These {currentIndex + 1} von {theses.length}
+          {t("thesis.progress", { current: currentIndex + 1, total: theses.length })}
         </span>
       </div>
 
@@ -72,11 +78,11 @@ export default function ThesisFlow({ answers, onAnswer, onFinish }) {
 
         <div className="thesis-actions">
           <button className="btn-skip" onClick={handleSkip}>
-            Überspringen
+            {t("common.skip")}
           </button>
           {currentIndex > 0 && (
             <button className="btn-back" onClick={handleBack}>
-              ← Zurück
+              {t("common.back")}
             </button>
           )}
         </div>
@@ -85,7 +91,7 @@ export default function ThesisFlow({ answers, onAnswer, onFinish }) {
       <div className="flow-footer">
         {canFinish && (
           <button className="btn-finish" onClick={onFinish}>
-            Auswertung anzeigen
+            {t("thesis.showResults")}
           </button>
         )}
       </div>

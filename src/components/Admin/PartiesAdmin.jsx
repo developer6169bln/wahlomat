@@ -1,7 +1,9 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useData } from "../../context/DataContext";
 
 export default function PartiesAdmin() {
+  const { t } = useTranslation();
   const { parties, theses, positions, updateParties, updatePositions } = useData();
   const [editing, setEditing] = useState(null);
   const [form, setForm] = useState({
@@ -41,16 +43,16 @@ export default function PartiesAdmin() {
 
     if (editing.isNew) {
       if (!form.id || !form.name) {
-        alert("ID und Kurzname sind Pflichtfelder.");
+        alert(t("admin.parties.requiredFields"));
         return;
       }
       if (parties.some((p) => p.id === form.id)) {
-        alert("Diese Partei-ID existiert bereits.");
+        alert(t("admin.parties.idExists"));
         return;
       }
       updateParties([...parties, partyData]);
       const partyPositions = {};
-      theses.forEach((t) => { partyPositions[t.id] = 0; });
+      theses.forEach((th) => { partyPositions[th.id] = 0; });
       updatePositions({ ...positions, [form.id]: partyPositions });
     } else {
       updateParties(
@@ -61,7 +63,7 @@ export default function PartiesAdmin() {
   };
 
   const handleDelete = (id) => {
-    if (confirm("Partei wirklich löschen? Die Positionen werden ebenfalls entfernt.")) {
+    if (confirm(t("admin.parties.deleteConfirm"))) {
       updateParties(parties.filter((p) => p.id !== id));
       const { [id]: _, ...rest } = positions;
       updatePositions(rest);
@@ -72,44 +74,44 @@ export default function PartiesAdmin() {
   return (
     <div className="admin-section">
       <div className="admin-section-header">
-        <h2>Parteien verwalten</h2>
+        <h2>{t("admin.parties.title")}</h2>
         <button className="btn-add" onClick={handleAdd}>
-          + Neue Partei
+          {t("admin.parties.add")}
         </button>
       </div>
 
       {editing ? (
         <div className="admin-form">
           <label>
-            ID (Kurzform, z.B. spd)
+            {t("admin.parties.idLabel")}
             <input
               type="text"
               value={form.id}
               onChange={(e) => setForm((f) => ({ ...f, id: e.target.value.toLowerCase() }))}
-              placeholder="spd"
+              placeholder={t("admin.parties.idPlaceholder")}
               disabled={!editing.isNew}
             />
           </label>
           <label>
-            Kurzname
+            {t("admin.parties.shortName")}
             <input
               type="text"
               value={form.name}
               onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
-              placeholder="SPD"
+              placeholder={t("admin.parties.shortNamePlaceholder")}
             />
           </label>
           <label>
-            Vollständiger Name
+            {t("admin.parties.fullName")}
             <input
               type="text"
               value={form.fullName}
               onChange={(e) => setForm((f) => ({ ...f, fullName: e.target.value }))}
-              placeholder="Sozialdemokratische Partei Deutschlands"
+              placeholder={t("admin.parties.fullNamePlaceholder")}
             />
           </label>
           <label>
-            Farbe
+            {t("admin.parties.color")}
             <div className="color-input">
               <input
                 type="color"
@@ -129,14 +131,14 @@ export default function PartiesAdmin() {
               checked={form.textDark}
               onChange={(e) => setForm((f) => ({ ...f, textDark: e.target.checked }))}
             />
-            Dunkle Schrift auf Badge (für helle Farben wie Gelb)
+            {t("admin.parties.textDark")}
           </label>
           <div className="form-actions">
             <button className="btn-save" onClick={handleSave}>
-              Speichern
+              {t("common.save")}
             </button>
             <button className="btn-cancel" onClick={() => setEditing(null)}>
-              Abbrechen
+              {t("common.cancel")}
             </button>
           </div>
         </div>
@@ -158,9 +160,9 @@ export default function PartiesAdmin() {
               <p className="item-text">{party.fullName}</p>
             </div>
             <div className="list-item-actions">
-              <button onClick={() => handleEdit(party)}>Bearbeiten</button>
+              <button onClick={() => handleEdit(party)}>{t("common.edit")}</button>
               <button className="btn-danger" onClick={() => handleDelete(party.id)}>
-                Löschen
+                {t("common.delete")}
               </button>
             </div>
           </li>

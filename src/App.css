@@ -436,6 +436,50 @@
   margin-right: 0.5rem;
 }
 
+/* ========== Language Switcher ========== */
+.language-switcher {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  display: flex;
+  gap: 0.25rem;
+}
+
+.lang-btn {
+  padding: 0.35rem 0.6rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  background: var(--color-surface-2);
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  cursor: pointer;
+  color: #64748b;
+}
+
+.lang-btn:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.lang-btn.active {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: white !important;
+}
+
+.start-page,
+.thesis-flow,
+.results-page,
+.party-detail,
+.admin-layout {
+  position: relative;
+}
+
+.admin-layout .language-switcher {
+  top: 1rem;
+  right: 1rem;
+}
+
 /* ========== Admin Link ========== */
 .admin-link {
   font-size: 0.875rem;

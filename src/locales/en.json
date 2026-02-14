@@ -1,0 +1,85 @@
+{
+  "common": {
+    "back": "← Back",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "skip": "Skip"
+  },
+  "start": {
+    "title": "Wahl-O-Mat",
+    "tagline": "Find out which party's positions are closest to yours",
+    "howItWorks": "How it works",
+    "step1": "Answer the following theses with \"Agree\", \"Neutral\" or \"Disagree\"",
+    "step2": "You can skip theses – they won't be included in the evaluation",
+    "step3": "At the end you'll see how well your answers match each party's positions",
+    "disclaimer": "The Wahl-O-Mat does not give voting recommendations. It serves political education and comparison of positions.",
+    "startButton": "Start now",
+    "adminLink": "Admin area"
+  },
+  "thesis": {
+    "progress": "Thesis {{current}} of {{total}}",
+    "showResults": "Show results",
+    "noTheses": "No theses available. Please add theses in the admin area.",
+    "agree": "Agree",
+    "neutral": "Neutral",
+    "disagree": "Disagree"
+  },
+  "results": {
+    "title": "Your result",
+    "subtitle": "Sorted by match with your answers",
+    "restart": "Start over"
+  },
+  "partyDetail": {
+    "match": "Match",
+    "comparisonTitle": "Comparison of your answers with party positions",
+    "yourAnswer": "Your answer",
+    "positionAgree": "Agree",
+    "positionRatherAgree": "Rather agree",
+    "positionNeutral": "Neutral",
+    "positionRatherDisagree": "Rather disagree",
+    "positionDisagree": "Disagree"
+  },
+  "admin": {
+    "title": "Admin area",
+    "backToApp": "← Back to Wahl-O-Mat",
+    "tabs": {
+      "theses": "Theses",
+      "parties": "Parties",
+      "positions": "Positions"
+    },
+    "reset": "Reset to default",
+    "resetConfirm": "Reset all data to default values? Saved changes will be lost.",
+    "theses": {
+      "title": "Manage theses",
+      "add": "+ New thesis",
+      "category": "Category",
+      "categoryPlaceholder": "e.g. Education",
+      "thesisLabel": "Thesis",
+      "thesisPlaceholder": "The state government should...",
+      "deleteConfirm": "Really delete this thesis?"
+    },
+    "parties": {
+      "title": "Manage parties",
+      "add": "+ New party",
+      "idLabel": "ID (short form, e.g. spd)",
+      "idPlaceholder": "spd",
+      "shortName": "Short name",
+      "shortNamePlaceholder": "SPD",
+      "fullName": "Full name",
+      "fullNamePlaceholder": "Social Democratic Party of Germany",
+      "color": "Color",
+      "textDark": "Dark text on badge (for light colors like yellow)",
+      "deleteConfirm": "Really delete this party? Positions will also be removed.",
+      "requiredFields": "ID and short name are required.",
+      "idExists": "This party ID already exists."
+    },
+    "positions": {
+      "title": "Party positions",
+      "hint": "Select the position (-2 to +2) for each party and each thesis.",
+      "thesis": "Thesis",
+      "empty": "Please add theses and parties first."
+    }
+  }
+}

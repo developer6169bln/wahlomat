@@ -1,13 +1,15 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useData } from "../../context/DataContext";
 
 export default function ThesesAdmin() {
+  const { t } = useTranslation();
   const { theses, parties, positions, updateTheses, updatePositions } = useData();
   const [editing, setEditing] = useState(null);
   const [form, setForm] = useState({ text: "", category: "" });
 
   const handleAdd = () => {
-    const newId = Math.max(0, ...theses.map((t) => t.id)) + 1;
+    const newId = Math.max(0, ...theses.map((th) => th.id)) + 1;
     setForm({ text: "", category: "Allgemein" });
     setEditing({ id: newId, isNew: true });
   };
@@ -28,8 +30,8 @@ export default function ThesesAdmin() {
       updatePositions(newPositions);
     } else {
       updateTheses(
-        theses.map((t) =>
-          t.id === editing.id ? { ...t, ...form } : t
+        theses.map((th) =>
+          th.id === editing.id ? { ...th, ...form } : th
         )
       );
     }
@@ -37,8 +39,8 @@ export default function ThesesAdmin() {
   };
 
   const handleDelete = (id) => {
-    if (confirm("These wirklich löschen?")) {
-      updateTheses(theses.filter((t) => t.id !== id));
+    if (confirm(t("admin.theses.deleteConfirm"))) {
+      updateTheses(theses.filter((th) => th.id !== id));
       const newPositions = { ...positions };
       parties.forEach((p) => {
         const { [id]: _, ...rest } = newPositions[p.id] || {};
@@ -54,38 +56,38 @@ export default function ThesesAdmin() {
   return (
     <div className="admin-section">
       <div className="admin-section-header">
-        <h2>Thesen verwalten</h2>
+        <h2>{t("admin.theses.title")}</h2>
         <button className="btn-add" onClick={handleAdd}>
-          + Neue These
+          {t("admin.theses.add")}
         </button>
       </div>
 
       {editing ? (
         <div className="admin-form">
           <label>
-            Kategorie
+            {t("admin.theses.category")}
             <input
               type="text"
               value={form.category}
               onChange={(e) => setForm((f) => ({ ...f, category: e.target.value }))}
-              placeholder="z.B. Bildung"
+              placeholder={t("admin.theses.categoryPlaceholder")}
             />
           </label>
           <label>
-            These
+            {t("admin.theses.thesisLabel")}
             <textarea
               value={form.text}
               onChange={(e) => setForm((f) => ({ ...f, text: e.target.value }))}
-              placeholder="Die Landesregierung soll..."
+              placeholder={t("admin.theses.thesisPlaceholder")}
               rows={3}
             />
           </label>
           <div className="form-actions">
             <button className="btn-save" onClick={handleSave}>
-              Speichern
+              {t("common.save")}
             </button>
             <button className="btn-cancel" onClick={handleCancel}>
-              Abbrechen
+              {t("common.cancel")}
             </button>
           </div>
         </div>
@@ -99,9 +101,9 @@ export default function ThesesAdmin() {
               <p className="item-text">{thesis.text}</p>
             </div>
             <div className="list-item-actions">
-              <button onClick={() => handleEdit(thesis)}>Bearbeiten</button>
+              <button onClick={() => handleEdit(thesis)}>{t("common.edit")}</button>
               <button className="btn-danger" onClick={() => handleDelete(thesis.id)}>
-                Löschen
+                {t("common.delete")}
               </button>
             </div>
           </li>

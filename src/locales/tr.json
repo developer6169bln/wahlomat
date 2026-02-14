@@ -1,0 +1,85 @@
+{
+  "common": {
+    "back": "← Geri",
+    "save": "Kaydet",
+    "cancel": "İptal",
+    "delete": "Sil",
+    "edit": "Düzenle",
+    "skip": "Atla"
+  },
+  "start": {
+    "title": "Wahl-O-Mat",
+    "tagline": "Hangi partinin görüşlerinin seninkilere en yakın olduğunu keşfet",
+    "howItWorks": "Nasıl çalışır",
+    "step1": "Aşağıdaki tezleri „Katılıyorum“, „Tarafsız“ veya „Katılmıyorum“ ile yanıtla",
+    "step2": "Tezleri atlayabilirsin – değerlendirmeye dahil edilmezler",
+    "step3": "Sonunda cevaplarının parti pozisyonlarıyla ne kadar örtüştüğünü göreceksin",
+    "disclaimer": "Wahl-O-Mat oy önerisi vermez. Siyasi eğitim ve pozisyon karşılaştırması için hizmet eder.",
+    "startButton": "Başla",
+    "adminLink": "Yönetim alanı"
+  },
+  "thesis": {
+    "progress": "Tez {{current}} / {{total}}",
+    "showResults": "Sonuçları göster",
+    "noTheses": "Tez bulunmuyor. Lütfen yönetim alanında tez ekleyin.",
+    "agree": "Katılıyorum",
+    "neutral": "Tarafsız",
+    "disagree": "Katılmıyorum"
+  },
+  "results": {
+    "title": "Sonucun",
+    "subtitle": "Cevaplarına göre sıralanmış",
+    "restart": "Baştan başla"
+  },
+  "partyDetail": {
+    "match": "Örtüşme",
+    "comparisonTitle": "Cevaplarının parti pozisyonlarıyla karşılaştırması",
+    "yourAnswer": "Senin cevabın",
+    "positionAgree": "Katılıyorum",
+    "positionRatherAgree": "Kısmen katılıyorum",
+    "positionNeutral": "Tarafsız",
+    "positionRatherDisagree": "Kısmen katılmıyorum",
+    "positionDisagree": "Katılmıyorum"
+  },
+  "admin": {
+    "title": "Yönetim alanı",
+    "backToApp": "← Wahl-O-Mat'a dön",
+    "tabs": {
+      "theses": "Tezler",
+      "parties": "Partiler",
+      "positions": "Pozisyonlar"
+    },
+    "reset": "Varsayılana sıfırla",
+    "resetConfirm": "Tüm veriler varsayılan değerlere sıfırlansın mı? Kaydedilen değişiklikler kaybolacak.",
+    "theses": {
+      "title": "Tezleri yönet",
+      "add": "+ Yeni tez",
+      "category": "Kategori",
+      "categoryPlaceholder": "örn. Eğitim",
+      "thesisLabel": "Tez",
+      "thesisPlaceholder": "Eyalet hükümeti şunları yapmalı...",
+      "deleteConfirm": "Bu tez gerçekten silinsin mi?"
+    },
+    "parties": {
+      "title": "Partileri yönet",
+      "add": "+ Yeni parti",
+      "idLabel": "ID (kısa form, örn. spd)",
+      "idPlaceholder": "spd",
+      "shortName": "Kısa ad",
+      "shortNamePlaceholder": "SPD",
+      "fullName": "Tam ad",
+      "fullNamePlaceholder": "Almanya Sosyal Demokrat Partisi",
+      "color": "Renk",
+      "textDark": "Rozette koyu yazı (sarı gibi açık renkler için)",
+      "deleteConfirm": "Bu parti gerçekten silinsin mi? Pozisyonlar da kaldırılacak.",
+      "requiredFields": "ID ve kısa ad zorunludur.",
+      "idExists": "Bu parti ID'si zaten mevcut."
+    },
+    "positions": {
+      "title": "Parti pozisyonları",
+      "hint": "Her parti ve her tez için pozisyonu (-2 ile +2 arası) seç.",
+      "thesis": "Tez",
+      "empty": "Lütfen önce tez ve parti ekleyin."
+    }
+  }
+}

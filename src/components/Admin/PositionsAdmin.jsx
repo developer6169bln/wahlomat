@@ -1,15 +1,17 @@
+import { useTranslation } from "react-i18next";
 import { useData } from "../../context/DataContext";
 
-const POSITION_OPTIONS = [
-  { value: -2, label: "Stimme nicht zu" },
-  { value: -1, label: "Eher nicht zu" },
-  { value: 0, label: "Neutral" },
-  { value: 1, label: "Eher zu" },
-  { value: 2, label: "Stimme zu" },
-];
-
 export default function PositionsAdmin() {
+  const { t } = useTranslation();
   const { theses, parties, positions, updatePositions } = useData();
+
+  const POSITION_OPTIONS = [
+    { value: -2, label: t("partyDetail.positionDisagree") },
+    { value: -1, label: t("partyDetail.positionRatherDisagree") },
+    { value: 0, label: t("partyDetail.positionNeutral") },
+    { value: 1, label: t("partyDetail.positionRatherAgree") },
+    { value: 2, label: t("partyDetail.positionAgree") },
+  ];
 
   const handleChange = (partyId, thesisId, value) => {
     const numValue = parseInt(value, 10);
@@ -25,9 +27,7 @@ export default function PositionsAdmin() {
   if (theses.length === 0 || parties.length === 0) {
     return (
       <div className="admin-section">
-        <p className="admin-empty">
-          Bitte zuerst Thesen und Parteien anlegen.
-        </p>
+        <p className="admin-empty">{t("admin.positions.empty")}</p>
       </div>
     );
   }
@@ -35,17 +35,15 @@ export default function PositionsAdmin() {
   return (
     <div className="admin-section">
       <div className="admin-section-header">
-        <h2>Parteipositionen</h2>
-        <p className="admin-hint">
-          Wähle für jede Partei und jede These die Position (-2 bis +2).
-        </p>
+        <h2>{t("admin.positions.title")}</h2>
+        <p className="admin-hint">{t("admin.positions.hint")}</p>
       </div>
 
       <div className="positions-grid-wrapper">
         <table className="positions-table">
           <thead>
             <tr>
-              <th className="col-thesis">These</th>
+              <th className="col-thesis">{t("admin.positions.thesis")}</th>
               {parties.map((party) => (
                 <th key={party.id} className="col-party">
                   <span
@@ -89,7 +87,6 @@ export default function PositionsAdmin() {
           </tbody>
         </table>
       </div>
-
     </div>
   );
 }

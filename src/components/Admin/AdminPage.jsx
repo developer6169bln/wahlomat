@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import AdminLayout from "./AdminLayout";
 import ThesesAdmin from "./ThesesAdmin";
 import PartiesAdmin from "./PartiesAdmin";
@@ -6,11 +7,12 @@ import PositionsAdmin from "./PositionsAdmin";
 import { useData } from "../../context/DataContext";
 
 export default function AdminPage({ onBack }) {
+  const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState("theses");
   const { resetToDefault } = useData();
 
   const handleReset = () => {
-    if (confirm("Alle Daten auf die Standardwerte zurücksetzen? Gespeicherte Änderungen gehen verloren.")) {
+    if (confirm(t("admin.resetConfirm"))) {
       resetToDefault();
     }
   };
@@ -26,7 +28,7 @@ export default function AdminPage({ onBack }) {
       {activeTab === "positions" && <PositionsAdmin />}
       <footer className="admin-footer">
         <button className="btn-reset" onClick={handleReset}>
-          Auf Standard zurücksetzen
+          {t("admin.reset")}
         </button>
       </footer>
     </AdminLayout>

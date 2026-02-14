@@ -1,15 +1,19 @@
+import { useTranslation } from "react-i18next";
 import { getSortedResults } from "../utils/calculateMatch";
 import { useData } from "../context/DataContext";
+import LanguageSwitcher from "./LanguageSwitcher";
 
 export default function Results({ answers, onRestart, onSelectParty }) {
+  const { t } = useTranslation();
   const { parties, positions } = useData();
   const results = getSortedResults(answers, parties, positions);
 
   return (
     <div className="results-page">
+      <LanguageSwitcher />
       <header className="results-header">
-        <h1>Dein Ergebnis</h1>
-        <p>Sortiert nach Übereinstimmung mit deinen Antworten</p>
+        <h1>{t("results.title")}</h1>
+        <p>{t("results.subtitle")}</p>
       </header>
 
       <div className="results-list">
@@ -34,7 +38,7 @@ export default function Results({ answers, onRestart, onSelectParty }) {
 
       <div className="results-actions">
         <button className="btn-restart" onClick={onRestart}>
-          Von vorne beginnen
+          {t("results.restart")}
         </button>
       </div>
     </div>
