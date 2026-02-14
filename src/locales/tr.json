@@ -47,7 +47,8 @@
     "subtitle": "Bölgeye göre kaydedilen sonuçlar",
     "loading": "Harita yükleniyor...",
     "noData": "Supabase yapılandırılmamış.",
-    "topParty": "En yüksek parti"
+    "topParty": "En yüksek parti",
+    "refresh": "Yenile"
   },
   "partyDetail": {
     "match": "Örtüşme",

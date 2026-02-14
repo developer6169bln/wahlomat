@@ -47,7 +47,8 @@
     "subtitle": "Gespeicherte Ergebnisse nach Region",
     "loading": "Karte wird geladen...",
     "noData": "Supabase nicht konfiguriert.",
-    "topParty": "Top-Partei"
+    "topParty": "Top-Partei",
+    "refresh": "Aktualisieren"
   },
   "partyDetail": {
     "match": "Übereinstimmung",

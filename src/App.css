@@ -946,6 +946,34 @@
   padding: 1rem;
   background: var(--color-surface);
   box-shadow: var(--shadow);
+  position: relative;
+}
+
+.map-header .btn-refresh {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  width: 2.5rem;
+  height: 2.5rem;
+  font-size: 1.25rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.map-header .btn-refresh:hover:not(:disabled) {
+  background: var(--color-primary);
+  color: white;
+  border-color: var(--color-primary);
+}
+
+.map-header .btn-refresh:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 .map-header .btn-back {

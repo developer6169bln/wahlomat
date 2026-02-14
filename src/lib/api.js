@@ -18,7 +18,7 @@ export async function saveResult(data) {
 }
 
 export async function fetchResults() {
-  const res = await fetch(`${API_BASE}/results`);
+  const res = await fetch(`${API_BASE}/results`, { cache: "no-store" });
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
   return res.json();
 }

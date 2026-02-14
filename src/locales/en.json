@@ -47,7 +47,8 @@
     "subtitle": "Saved results by region",
     "loading": "Loading map...",
     "noData": "Supabase not configured.",
-    "topParty": "Top party"
+    "topParty": "Top party",
+    "refresh": "Refresh"
   },
   "partyDetail": {
     "match": "Match",

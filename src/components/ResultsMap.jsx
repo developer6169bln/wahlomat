@@ -27,17 +27,19 @@ export default function ResultsMap({ onBack }) {
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const loadResults = async () => {
+    setLoading(true);
+    try {
+      const data = await fetchResults();
+      setResults(data || []);
+    } catch {
+      setResults([]);
+    }
+    setLoading(false);
+  };
+
   useEffect(() => {
-    const load = async () => {
-      try {
-        const data = await fetchResults();
-        setResults(data || []);
-      } catch {
-        setResults([]);
-      }
-      setLoading(false);
-    };
-    load();
+    loadResults();
   }, []);
 
   const getTopParty = (r) => {
@@ -55,6 +57,15 @@ export default function ResultsMap({ onBack }) {
         <button className="btn-back" onClick={onBack}>{t("common.back")}</button>
         <h1>{t("map.title")}</h1>
         <p className="map-subtitle">{t("map.subtitle")}</p>
+        <button
+          type="button"
+          className="btn-refresh"
+          onClick={loadResults}
+          disabled={loading}
+          title={t("map.refresh")}
+        >
+          {loading ? "…" : "↻"}
+        </button>
       </header>
 
       {loading ? (
