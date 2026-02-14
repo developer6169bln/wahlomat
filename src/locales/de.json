@@ -29,7 +29,26 @@
   "results": {
     "title": "Dein Ergebnis",
     "subtitle": "Sortiert nach Übereinstimmung mit deinen Antworten",
-    "restart": "Von vorne beginnen"
+    "restart": "Von vorne beginnen",
+    "showMap": "Karte anzeigen"
+  },
+  "save": {
+    "button": "Ergebnis mit Standort speichern",
+    "hint": "Dein Standort wird abgefragt. Bei Mobilgeräten erscheint eine Berechtigungsanfrage.",
+    "requesting": "Standort wird abgefragt...",
+    "saving": "Wird gespeichert...",
+    "success": "Ergebnis gespeichert!",
+    "error": "Speichern fehlgeschlagen.",
+    "locationDenied": "Standortzugriff wurde verweigert.",
+    "locationUnavailable": "Standort konnte nicht ermittelt werden.",
+    "locationTimeout": "Zeitüberschreitung."
+  },
+  "map": {
+    "title": "Ergebnisse auf der Karte",
+    "subtitle": "Gespeicherte Ergebnisse nach Region",
+    "loading": "Karte wird geladen...",
+    "noData": "Supabase nicht konfiguriert.",
+    "topParty": "Top-Partei"
   },
   "partyDetail": {
     "match": "Übereinstimmung",

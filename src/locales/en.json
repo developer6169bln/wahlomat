@@ -29,7 +29,26 @@
   "results": {
     "title": "Your result",
     "subtitle": "Sorted by match with your answers",
-    "restart": "Start over"
+    "restart": "Start over",
+    "showMap": "Show map"
+  },
+  "save": {
+    "button": "Save result with location",
+    "hint": "Your location will be requested. On mobile, a permission prompt will appear.",
+    "requesting": "Requesting location...",
+    "saving": "Saving...",
+    "success": "Result saved!",
+    "error": "Save failed.",
+    "locationDenied": "Location access denied.",
+    "locationUnavailable": "Location unavailable.",
+    "locationTimeout": "Location request timed out."
+  },
+  "map": {
+    "title": "Results on map",
+    "subtitle": "Saved results by region",
+    "loading": "Loading map...",
+    "noData": "Supabase not configured.",
+    "topParty": "Top party"
   },
   "partyDetail": {
     "match": "Match",

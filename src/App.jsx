@@ -5,9 +5,10 @@ import ThesisFlow from "./components/ThesisFlow";
 import Results from "./components/Results";
 import PartyDetail from "./components/PartyDetail";
 import AdminPage from "./components/Admin/AdminPage";
+import ResultsMap from "./components/ResultsMap";
 import "./App.css";
 
-const VIEWS = { start: "start", theses: "theses", results: "results", detail: "detail", admin: "admin" };
+const VIEWS = { start: "start", theses: "theses", results: "results", detail: "detail", admin: "admin", map: "map" };
 
 function AppContent() {
   const [view, setView] = useState(VIEWS.start);
@@ -30,7 +31,7 @@ function AppContent() {
   };
 
   return (
-    <div className="app">
+    <div className={`app ${view === VIEWS.map ? "app-fullwidth" : ""}`}>
       {view === VIEWS.start && (
         <StartPage
           onStart={() => setView(VIEWS.theses)}
@@ -49,6 +50,7 @@ function AppContent() {
           answers={answers}
           onRestart={handleRestart}
           onSelectParty={handleSelectParty}
+          onShowMap={() => setView(VIEWS.map)}
         />
       )}
       {view === VIEWS.detail && selectedParty && (
@@ -60,6 +62,9 @@ function AppContent() {
       )}
       {view === VIEWS.admin && (
         <AdminPage onBack={() => setView(VIEWS.start)} />
+      )}
+      {view === VIEWS.map && (
+        <ResultsMap onBack={() => setView(VIEWS.results)} />
       )}
     </div>
   );

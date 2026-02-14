@@ -29,7 +29,26 @@
   "results": {
     "title": "Sonucun",
     "subtitle": "Cevaplarına göre sıralanmış",
-    "restart": "Baştan başla"
+    "restart": "Baştan başla",
+    "showMap": "Haritayı göster"
+  },
+  "save": {
+    "button": "Konumla sonucu kaydet",
+    "hint": "Konumunuz istenecek. Mobilde izin penceresi açılır.",
+    "requesting": "Konum isteniyor...",
+    "saving": "Kaydediliyor...",
+    "success": "Sonuç kaydedildi!",
+    "error": "Kayıt başarısız.",
+    "locationDenied": "Konum erişimi reddedildi.",
+    "locationUnavailable": "Konum alınamadı.",
+    "locationTimeout": "Zaman aşımı."
+  },
+  "map": {
+    "title": "Haritada sonuçlar",
+    "subtitle": "Bölgeye göre kaydedilen sonuçlar",
+    "loading": "Harita yükleniyor...",
+    "noData": "Supabase yapılandırılmamış.",
+    "topParty": "En yüksek parti"
   },
   "partyDetail": {
     "match": "Örtüşme",
