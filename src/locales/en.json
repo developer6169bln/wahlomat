@@ -8,13 +8,13 @@
     "skip": "Skip"
   },
   "start": {
-    "title": "Wahl-O-Mat",
+    "title": "TÜRKOMAT",
     "tagline": "Find out which party's positions are closest to yours",
     "howItWorks": "How it works",
     "step1": "Answer the following theses with \"Agree\", \"Neutral\" or \"Disagree\"",
     "step2": "You can skip theses – they won't be included in the evaluation",
     "step3": "At the end you'll see how well your answers match each party's positions",
-    "disclaimer": "The Wahl-O-Mat does not give voting recommendations. It serves political education and comparison of positions.",
+    "disclaimer": "The TÜRKOMAT does not give voting recommendations. It serves political education and comparison of positions.",
     "startButton": "Start now",
     "adminLink": "Admin area"
   },
@@ -43,7 +43,7 @@
   },
   "admin": {
     "title": "Admin area",
-    "backToApp": "← Back to Wahl-O-Mat",
+    "backToApp": "← Back to TÜRKOMAT",
     "tabs": {
       "theses": "Theses",
       "parties": "Parties",

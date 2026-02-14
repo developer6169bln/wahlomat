@@ -8,13 +8,13 @@
     "skip": "Atla"
   },
   "start": {
-    "title": "Wahl-O-Mat",
+    "title": "TÜRKOMAT",
     "tagline": "Hangi partinin görüşlerinin seninkilere en yakın olduğunu keşfet",
     "howItWorks": "Nasıl çalışır",
     "step1": "Aşağıdaki tezleri „Katılıyorum“, „Tarafsız“ veya „Katılmıyorum“ ile yanıtla",
     "step2": "Tezleri atlayabilirsin – değerlendirmeye dahil edilmezler",
     "step3": "Sonunda cevaplarının parti pozisyonlarıyla ne kadar örtüştüğünü göreceksin",
-    "disclaimer": "Wahl-O-Mat oy önerisi vermez. Siyasi eğitim ve pozisyon karşılaştırması için hizmet eder.",
+    "disclaimer": "TÜRKOMAT oy önerisi vermez. Siyasi eğitim ve pozisyon karşılaştırması için hizmet eder.",
     "startButton": "Başla",
     "adminLink": "Yönetim alanı"
   },
@@ -43,7 +43,7 @@
   },
   "admin": {
     "title": "Yönetim alanı",
-    "backToApp": "← Wahl-O-Mat'a dön",
+    "backToApp": "← TÜRKOMAT'a dön",
     "tabs": {
       "theses": "Tezler",
       "parties": "Partiler",
