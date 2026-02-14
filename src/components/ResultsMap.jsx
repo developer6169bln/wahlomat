@@ -44,10 +44,22 @@ export default function ResultsMap({ onBack }) {
 
   const getTopParty = (r) => {
     const matches = r.party_matches || [];
-    return matches.length ? matches[0] : null;
+    if (!matches.length) return null;
+    // Immer nach höchster Übereinstimmung sortieren (falls Reihenfolge nicht stimmt)
+    const sorted = [...matches].sort((a, b) => (b.match ?? 0) - (a.match ?? 0));
+    return sorted[0];
   };
 
-  const firstWithLocation = results.find((r) => r.lat && r.lng);
+  // Pro Standort nur das neueste Ergebnis anzeigen (API liefert created_at DESC)
+  const deduplicatedByLocation = results.reduce((acc, r) => {
+    if (!r.lat || !r.lng) return acc;
+    const key = `${r.lat.toFixed(4)}_${r.lng.toFixed(4)}`;
+    if (!acc[key]) acc[key] = r;
+    return acc;
+  }, {});
+  const displayResults = Object.values(deduplicatedByLocation);
+
+  const firstWithLocation = displayResults.find((r) => r.lat && r.lng);
   const defaultCenter = [51.1657, 10.4515]; // Deutschland
 
   return (
@@ -83,7 +95,7 @@ export default function ResultsMap({ onBack }) {
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
             <MapCenter center={firstWithLocation ? [firstWithLocation.lat, firstWithLocation.lng] : null} />
-            {results.filter((r) => r.lat && r.lng).map((r) => {
+            {displayResults.map((r) => {
               const top = getTopParty(r);
               return (
                 <Marker key={r.id} position={[r.lat, r.lng]}>
