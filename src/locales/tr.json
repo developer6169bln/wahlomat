@@ -35,7 +35,7 @@
   },
   "save": {
     "button": "Sonucu kaydet",
-    "hint": "Konum IP adresinizle belirlenir – izin gerekmez.",
+    "hint": "Her kaydettiğinizde konum yeniden istenir (tarayıcı veya IP).",
     "saving": "Kaydediliyor...",
     "success": "Sonuç kaydedildi!",
     "error": "Kayıt başarısız.",

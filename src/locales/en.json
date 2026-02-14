@@ -35,7 +35,7 @@
   },
   "save": {
     "button": "Save result",
-    "hint": "Location is determined via your IP address – no permissions required.",
+    "hint": "Location is requested fresh each time you save (browser or IP).",
     "saving": "Saving...",
     "success": "Result saved!",
     "error": "Save failed.",

@@ -35,7 +35,7 @@
   },
   "save": {
     "button": "Ergebnis speichern",
-    "hint": "Standort wird über deine IP-Adresse ermittelt – keine Berechtigungen nötig.",
+    "hint": "Standort wird bei jedem Speichern neu abgefragt (Browser oder IP).",
     "saving": "Wird gespeichert...",
     "success": "Ergebnis gespeichert!",
     "error": "Speichern fehlgeschlagen.",
