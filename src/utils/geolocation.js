@@ -59,8 +59,9 @@ export async function getLocationByIP() {
 
 async function getLocationByIPOnly() {
   try {
-    const res = await fetch(IP_GEO_URL, {
-      headers: { Accept: "application/json" },
+    const url = `${IP_GEO_URL}?_=${Date.now()}`;
+    const res = await fetch(url, {
+      headers: { Accept: "application/json", "Cache-Control": "no-cache", Pragma: "no-cache" },
       cache: "no-store",
     });
     if (!res.ok) throw new Error("IP-Geolocation fehlgeschlagen");
