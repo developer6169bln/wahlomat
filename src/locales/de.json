@@ -34,7 +34,8 @@
   },
   "save": {
     "button": "Ergebnis mit Standort speichern",
-    "hint": "Dein Standort wird abgefragt. Bei Mobilgeräten erscheint eine Berechtigungsanfrage – tippe auf „Erlauben“ oder „Zulassen“.",
+    "buttonNoLocation": "Ohne Standort speichern",
+    "hint": "Dein Standort wird abgefragt. Bei Mobilgeräten erscheint eine Berechtigungsanfrage – tippe auf „Erlauben“ oder „Zulassen“. Wenn keine Abfrage erscheint (z.B. iPhone Safari): „Ohne Standort speichern“ nutzen.",
     "requesting": "Standort wird abgefragt...",
     "saving": "Wird gespeichert...",
     "success": "Ergebnis gespeichert!",

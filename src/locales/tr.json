@@ -34,7 +34,8 @@
   },
   "save": {
     "button": "Konumla sonucu kaydet",
-    "hint": "Konumunuz istenecek. Mobilde izin penceresinde \"İzin ver\" veya \"Kabul et\"e dokunun.",
+    "buttonNoLocation": "Konum olmadan kaydet",
+    "hint": "Konumunuz istenecek. Mobilde izin penceresinde \"İzin ver\" veya \"Kabul et\"e dokunun. Pencere açılmazsa (örn. iPhone Safari): \"Konum olmadan kaydet\" kullanın.",
     "requesting": "Konum isteniyor...",
     "saving": "Kaydediliyor...",
     "success": "Sonuç kaydedildi!",

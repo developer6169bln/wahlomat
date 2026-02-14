@@ -34,7 +34,8 @@
   },
   "save": {
     "button": "Save result with location",
-    "hint": "Your location will be requested. On mobile, tap \"Allow\" or \"Grant\" when the permission prompt appears.",
+    "buttonNoLocation": "Save without location",
+    "hint": "Your location will be requested. On mobile, tap \"Allow\" or \"Grant\" when the permission prompt appears. If no prompt appears (e.g. iPhone Safari): use \"Save without location\".",
     "requesting": "Requesting location...",
     "saving": "Saving...",
     "success": "Result saved!",
