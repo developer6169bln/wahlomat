@@ -52,6 +52,8 @@
     "refresh": "Refresh",
     "modePins": "Pins",
     "modeHeatmap": "Heatmap",
+    "resultsCount": "results total",
+    "withLocation": "with location",
     "resultsList": "All results",
     "resultsTotal": "{{count}} saved results",
     "unknownLocation": "Unknown location"

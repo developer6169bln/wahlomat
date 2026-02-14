@@ -36,10 +36,12 @@ app.post("/api/results", async (req, res) => {
   if (!pool) return res.status(503).json({ error: "Database not configured" });
   try {
     const { lat, lng, city, region, country, answers, party_matches } = req.body;
+    const latNum = lat != null ? Number(lat) : null;
+    const lngNum = lng != null ? Number(lng) : null;
     const { rows } = await pool.query(
       `INSERT INTO results (lat, lng, city, region, country, answers, party_matches)
        VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING id`,
-      [lat || null, lng || null, city || null, region || null, country || null, JSON.stringify(answers || {}), JSON.stringify(party_matches || [])]
+      [latNum, lngNum, city || null, region || null, country || null, JSON.stringify(answers || {}), JSON.stringify(party_matches || [])]
     );
     res.status(201).json({ id: rows[0].id });
   } catch (err) {
@@ -52,7 +54,7 @@ app.get("/api/results", async (req, res) => {
   if (!pool) return res.status(503).json({ error: "Database not configured" });
   try {
     const { rows } = await pool.query(
-      "SELECT * FROM results ORDER BY created_at DESC LIMIT 500"
+      "SELECT id, created_at, lat, lng, city, region, country, answers, party_matches FROM results ORDER BY created_at DESC LIMIT 500"
     );
     res.json(rows);
   } catch (err) {

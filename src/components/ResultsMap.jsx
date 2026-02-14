@@ -99,7 +99,20 @@ export default function ResultsMap({ onBack }) {
     return sorted[0];
   };
 
-  const resultsWithLocation = results.filter((r) => r.lat && r.lng);
+  // Alle Ergebnisse mit Standort – lat/lng können als Number oder String kommen
+  const resultsWithLocation = results
+    .filter((r) => {
+      const lat = Number(r.lat);
+      const lng = Number(r.lng);
+      return !Number.isNaN(lat) && !Number.isNaN(lng) && lat !== 0 && lng !== 0;
+    })
+    .map((r) => ({
+      ...r,
+      lat: Number(r.lat),
+      lng: Number(r.lng),
+    }));
+
+  // Für Liste: pro Standort nur ein Eintrag (Übersicht)
   const displayResults = resultsWithLocation.reduce((acc, r) => {
     const key = `${r.lat.toFixed(5)}_${r.lng.toFixed(5)}`;
     if (!acc[key]) acc[key] = [];
@@ -107,6 +120,24 @@ export default function ResultsMap({ onBack }) {
     return acc;
   }, {});
   const listItems = Object.values(displayResults).map((arr) => arr[0]);
+
+  // Offset für Pins am gleichen Standort – jeder Pin sichtbar, keine Überlappung
+  const pinPositions = resultsWithLocation.map((r, idx) => {
+    const key = `${r.lat.toFixed(5)}_${r.lng.toFixed(5)}`;
+    const sameLocation = resultsWithLocation.filter(
+      (o) => `${o.lat.toFixed(5)}_${o.lng.toFixed(5)}` === key
+    );
+    const posInGroup = sameLocation.findIndex((o) => o.id === r.id);
+    const totalAtLocation = sameLocation.length;
+    if (totalAtLocation <= 1) return { ...r, offsetLat: 0, offsetLng: 0 };
+    const angle = (posInGroup / totalAtLocation) * 2 * Math.PI;
+    const offset = 0.003;
+    return {
+      ...r,
+      offsetLat: Math.cos(angle) * offset,
+      offsetLng: Math.sin(angle) * offset,
+    };
+  });
 
   const firstWithLocation = resultsWithLocation[0];
   const defaultCenter = [51.1657, 10.4515];
@@ -132,7 +163,9 @@ export default function ResultsMap({ onBack }) {
       <header className="map-header">
         <button className="btn-back" onClick={onBack}>{t("common.back")}</button>
         <h1>{t("map.title")}</h1>
-        <p className="map-subtitle">{t("map.subtitle")}</p>
+        <p className="map-subtitle">
+          {t("map.subtitle")} — {results.length} {t("map.resultsCount")}, {resultsWithLocation.length} {t("map.withLocation")}
+        </p>
         <div className="map-mode-tabs">
           <button
             type="button"
@@ -202,33 +235,28 @@ export default function ResultsMap({ onBack }) {
               />
               <MapCenter center={firstWithLocation ? [firstWithLocation.lat, firstWithLocation.lng] : null} />
               {mapMode === "pins" &&
-                resultsWithLocation.map((r) => {
+                pinPositions.map((r) => {
                   const top = getTopParty(r);
                   const color = top?.color || "#888";
-                  const groupResults = displayResults[`${r.lat.toFixed(5)}_${r.lng.toFixed(5)}`] || [r];
                   return (
                     <Marker
                       key={r.id}
-                      position={[r.lat, r.lng]}
+                      position={[r.lat + r.offsetLat, r.lng + r.offsetLng]}
                       icon={createColoredIcon(color)}
                     >
                       <Popup>
                         <div className="map-popup">
                           {r.city && <strong>{r.city}</strong>}
                           {r.region && <span>, {r.region}</span>}
-                          <div className="map-popup-results">
-                            {groupResults.map((res) => {
-                              const topParty = getTopParty(res);
-                              return topParty ? (
-                                <p key={res.id} className="map-popup-party">
-                                  <span style={{ color: topParty.color }}>{topParty.name}</span> {topParty.match}%
-                                  {res.created_at && (
-                                    <span className="map-popup-date"> ({formatDate(res.created_at)})</span>
-                                  )}
-                                </p>
-                              ) : null;
-                            })}
-                          </div>
+                          {r.country && <span>, {r.country}</span>}
+                          {top && (
+                            <p className="map-popup-party">
+                              <span style={{ color: top.color }}>{top.name}</span> {top.match}%
+                              {r.created_at && (
+                                <span className="map-popup-date"> ({formatDate(r.created_at)})</span>
+                              )}
+                            </p>
+                          )}
                         </div>
                       </Popup>
                     </Marker>

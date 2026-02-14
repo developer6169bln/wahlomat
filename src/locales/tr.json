@@ -52,6 +52,8 @@
     "refresh": "Yenile",
     "modePins": "İğneler",
     "modeHeatmap": "Isı haritası",
+    "resultsCount": "toplam sonuç",
+    "withLocation": "konumlu",
     "resultsList": "Tüm sonuçlar",
     "resultsTotal": "{{count}} kaydedilen sonuç",
     "unknownLocation": "Bilinmeyen konum"
